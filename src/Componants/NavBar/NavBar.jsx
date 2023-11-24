@@ -11,11 +11,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { HealthAndSafety } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-const pages = ["Camps", "Dashbord", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
@@ -48,18 +46,18 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            // href="/"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
+              textDecoration: "none",
+              color: "inherit",
             }}
           >
-            <Link style={{ textDecoration: "none", color: "inherit" }}>
-              CareCamp
-            </Link>
+            CareCamp
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -91,21 +89,48 @@ function NavBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link
-                      style={{ textDecoration: "none", color: "black" }}
-                      to={`/${page}`}
-                    >
-                      {page}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/"}
+                  >
+                    Home
+                  </Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/availableCamps"}
+                  >
+                    Available Camps
+                  </Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/dashbord"}
+                  >
+                    Dashbord
+                  </Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/contactUs"}
+                  >
+                    Contact Us
+                  </Link>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -122,23 +147,56 @@ function NavBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            CareCamp
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link style={{ textDecoration: "none", color: "white" }} to={"/"}>
+                Home
+              </Link>
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={"/availableCamps"}
               >
-                <Link
-                  style={{ textDecoration: "none", color: "white" }}
-                  to={`/${page}`}
-                >
-                  {page}
-                </Link>
-              </Button>
-            ))}
+                Available Camps
+              </Link>
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={"/dashbord"}
+              >
+                Dashbord
+              </Link>
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={"/contactUs"}
+              >
+                Contact Us
+              </Link>
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
