@@ -17,7 +17,7 @@ const PopularCamps = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/campData.json"); // Assuming campData.json is in the public folder
+        const response = await fetch("/campData.json");
         const data = await response.json();
         setCamps(data);
       } catch (error) {
@@ -29,7 +29,6 @@ const PopularCamps = () => {
   }, []);
 
   const handleRegister = (campName) => {
-    // Implement registration logic and update participant count
     setParticipantCounts((prevCounts) => ({
       ...prevCounts,
       [campName]: (prevCounts[campName] || 0) + 1,
