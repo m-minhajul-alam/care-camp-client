@@ -98,7 +98,7 @@ const AvailableCamps = () => {
                 color="primary"
                 onClick={() => joinCamp(camp.id)}
                 component={Link}
-                to={`/camps/${camp.id}`}
+                to={`/campDetail/${camp.id}`}
                 sx={{ mt: "auto" }}
               >
                 Join Camp
@@ -107,6 +107,9 @@ const AvailableCamps = () => {
           </Grid>
         ))}
       </Grid>
+
+
+      
     </Container>
   );
 };

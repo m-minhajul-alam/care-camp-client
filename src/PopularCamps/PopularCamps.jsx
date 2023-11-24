@@ -58,31 +58,33 @@ const PopularCamps = () => {
                 alt={camp.campName}
                 style={{ width: "100%", height: "200px", objectFit: "cover" }}
               />
-              <CardContent>
+              <CardContent sx={{ spacing: "5px", flexGrow: 1 }}>
                 <Typography variant="h5" component="div">
                   {camp.campName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Camp Fees: {camp.campFees}
+                  <strong>Camp Fees:</strong> {camp.campFees}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Scheduled Date and Time: {camp.scheduledDateTime}
+                  <strong>Scheduled Date and Time:</strong>{" "}
+                  {camp.scheduledDateTime}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Venue Location: {camp.venueLocation}
+                  <strong>Venue Location:</strong> {camp.venueLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Target Audience: {camp.targetAudience}
+                  <strong> Target Audience:</strong> {camp.targetAudience}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Participant Count: {participantCounts[camp.campName] || 0}
+                  <strong> Participant Count:</strong>{" "}
+                  {participantCounts[camp.campName] || 0}
                 </Typography>
               </CardContent>
               <CardActions>
                 <Button onClick={() => handleRegister(camp.campName)}>
                   Register
                 </Button>
-                <Button component={Link} to={`/camp-details/${camp.campName}`}>
+                <Button component={Link} to={`/campDetail/${camp.id}`}>
                   Details
                 </Button>
               </CardActions>

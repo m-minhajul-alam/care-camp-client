@@ -3,6 +3,7 @@ import Root from "../Layout/Root";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import AvailableCamps from "../Pages/AvailableCamps/AvailableCamps";
+import CampDetail from "../Pages/CampDetail/CampDetail";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
       {
         path: "/availableCamps",
         element: <AvailableCamps></AvailableCamps>,
+      },
+      {
+        path: "/campDetail/:id",
+        element: <CampDetail></CampDetail>,
+        // loader: ({ params }) => fetch(`campData.json/${params.id}`)
       },
     ],
   },

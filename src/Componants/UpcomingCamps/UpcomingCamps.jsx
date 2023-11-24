@@ -45,10 +45,10 @@ const UpcomingCamps = () => {
                   {camp.campName}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" gutterBottom>
-                  Date: {camp.scheduledDateTime}
+                  <strong> Date:</strong> {camp.scheduledDateTime}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Venue: {camp.venueLocation}
+                  <strong> Venue:</strong> {camp.venueLocation}
                 </Typography>
                 {/* Add more details as needed */}
               </CardContent>
