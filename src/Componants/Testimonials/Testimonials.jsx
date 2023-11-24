@@ -44,7 +44,15 @@ const Testimonials = () => {
         interval={5000}
       >
         {testimonials.map((testimonial, index) => (
-          <Paper key={index} sx={{ padding: 3, textAlign: "center", height: "200px", overflow: "auto" }}>
+          <Paper
+            key={index}
+            sx={{
+              padding: 3,
+              textAlign: "center",
+              height: "200px",
+              overflow: "auto",
+            }}
+          >
             <Typography variant="h5" gutterBottom>
               {testimonial.campName}
             </Typography>

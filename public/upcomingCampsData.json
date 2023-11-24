@@ -1,0 +1,51 @@
+[
+    {
+      "campName": "Fitness Bootcamp",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "scheduledDateTime": "2023-12-20T08:00:00",
+      "venueLocation": "City Park",
+      "description": "Join our Fitness Bootcamp for a day of intense workouts, fitness challenges, and expert guidance. Open to all fitness levels, this camp aims to promote a healthy and active lifestyle.",
+      "registrationLink": "https://example.com/fitness-bootcamp-registration"
+    },
+    {
+      "campName": "Yoga Retreat",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "scheduledDateTime": "2023-12-28T10:00:00",
+      "venueLocation": "Serene Retreat Center",
+      "description": "Embark on a journey of self-discovery and relaxation at our Yoga Retreat. Experience rejuvenating yoga sessions, meditation, and holistic wellness practices.",
+      "registrationLink": "https://example.com/yoga-retreat-registration"
+    },
+    {
+      "campName": "Nutrition Workshop",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "scheduledDateTime": "2024-01-05T14:30:00",
+      "venueLocation": "Wellness Hub",
+      "description": "Learn about the principles of nutrition and healthy eating at our Nutrition Workshop. Discover practical tips for maintaining a balanced diet and supporting overall well-being.",
+      "registrationLink": "https://example.com/nutrition-workshop-registration"
+    },
+    {
+      "campName": "Mindfulness Meditation",
+      "image": "https://example.com/mindfulness-meditation.jpg",
+      "scheduledDateTime": "2024-01-15T18:00:00",
+      "venueLocation": "Peaceful Sanctuary",
+      "description": "Join our Mindfulness Meditation camp to cultivate inner peace and tranquility. Learn mindfulness techniques and practices for stress reduction and mental well-being.",
+      "registrationLink": "https://example.com/mindfulness-meditation-registration"
+    },
+    {
+      "campName": "Cycling Adventure",
+      "image": "https://example.com/cycling-adventure.jpg",
+      "scheduledDateTime": "2024-02-02T09:00:00",
+      "venueLocation": "Mountain Trails",
+      "description": "Experience the thrill of a Cycling Adventure through scenic mountain trails. Suitable for cyclists of all levels, this camp offers a blend of fitness and outdoor exploration.",
+      "registrationLink": "https://example.com/cycling-adventure-registration"
+    },
+    {
+      "campName": "Holistic Health Retreat",
+      "image": "https://example.com/holistic-health-retreat.jpg",
+      "scheduledDateTime": "2024-02-20T12:00:00",
+      "venueLocation": "Nature Haven Resort",
+      "description": "Immerse yourself in a Holistic Health Retreat, featuring yoga, meditation, nutrition workshops, and holistic therapies. Reconnect with nature and rejuvenate your mind, body, and spirit.",
+      "registrationLink": "https://example.com/holistic-health-retreat-registration"
+    }
+  ]
+  

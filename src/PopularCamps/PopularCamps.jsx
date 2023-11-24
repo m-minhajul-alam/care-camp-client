@@ -40,7 +40,12 @@ const PopularCamps = () => {
     <Container sx={{ my: "68px" }}>
       <Typography
         variant="h4"
-        sx={{ textAlign: "center", font: "700px", mb: "26px", color: "#00A19D" }}
+        sx={{
+          textAlign: "center",
+          font: "700px",
+          mb: "26px",
+          color: "#00A19D",
+        }}
         gutterBottom
       >
         Popular Medical Camps
@@ -52,11 +57,7 @@ const PopularCamps = () => {
               <img
                 src={camp.image}
                 alt={camp.campName}
-                style={{
-                  // maxWidth: "100%",
-                  height: "200px",
-                  objectFit: "cover",
-                }}
+                style={{ width: "100%", height: "200px", objectFit: "cover" }}
               />
               <CardContent>
                 <Typography variant="h5" component="div">
