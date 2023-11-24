@@ -90,44 +90,36 @@ function NavBar() {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to={"/"}
-                  >
-                    Home
-                  </Link>
-                </Typography>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={"/"}
+                >
+                  <Typography textAlign="center">Home</Typography>
+                </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to={"/availableCamps"}
-                  >
-                    Available Camps
-                  </Link>
-                </Typography>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={"/availableCamps"}
+                >
+                  <Typography textAlign="center">Available Camps</Typography>
+                </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to={"/dashbord"}
-                  >
-                    Dashbord
-                  </Link>
-                </Typography>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={"/dashboard"}
+                >
+                  <Typography textAlign="center">Dashbord</Typography>
+                </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to={"/contactUs"}
-                  >
-                    Contact Us
-                  </Link>
-                </Typography>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={"/contactUs"}
+                >
+                  <Typography textAlign="center">Contact Us</Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
@@ -156,47 +148,47 @@ function NavBar() {
               justifyContent: "center",
             }}
           >
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              <Link style={{ textDecoration: "none", color: "white" }} to={"/"}>
+            <Link style={{ textDecoration: "none", color: "white" }} to={"/"}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
                 Home
-              </Link>
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              </Button>
+            </Link>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={"/availableCamps"}
             >
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/availableCamps"}
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 Available Camps
-              </Link>
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              </Button>
+            </Link>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={"/dashboard"}
             >
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/dashbord"}
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 Dashbord
-              </Link>
-            </Button>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              </Button>
+            </Link>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={"/contactUs"}
             >
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/contactUs"}
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 Contact Us
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -5,6 +5,8 @@ import Home from "../Pages/Home/Home";
 import AvailableCamps from "../Pages/AvailableCamps/AvailableCamps";
 import CampDetail from "../Pages/CampDetail/CampDetail";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import SignUp from "../Pages/SinngUp/SingUp";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
         element: <ContactUs></ContactUs>,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+  },
+  {
+    path: "/singUp",
+    element: <SignUp></SignUp>,
   },
 ]);
 

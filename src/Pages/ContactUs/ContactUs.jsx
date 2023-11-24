@@ -5,7 +5,7 @@ const ContactUs = () => {
     <Container sx={{ my: "68px" }}>
       <Typography
         variant="h4"
-        sx={{ textAlign: "center", mb: "26px", color: "#00A19D" }}
+        sx={{ textAlign: "center", mb: "26px", color: "primary" }}
         gutterBottom
       >
         Contact Us
@@ -18,6 +18,7 @@ const ContactUs = () => {
               <Typography variant="h6" gutterBottom>
                 Our Address
               </Typography>
+              <hr />
               <Typography variant="body1">
                 123 Main Street,
                 <br />
@@ -32,6 +33,7 @@ const ContactUs = () => {
               <Typography variant="h6" gutterBottom>
                 Contact Information
               </Typography>
+              <hr />
               <Typography variant="body1">
                 Email: info@carecamp.com
                 <br />
@@ -42,15 +44,14 @@ const ContactUs = () => {
         </Grid>
       </Grid>
 
-      {/* Additional Sections */}
       <Grid container spacing={3} sx={{ mt: 4 }}>
-        {/* Additional Section 1 */}
         <Grid item xs={12} md={6}>
           <Card elevation={3} sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Customer Support
               </Typography>
+              <hr />
               <Typography variant="body1">
                 For assistance or inquiries, please contact our customer support
                 team.
@@ -63,13 +64,13 @@ const ContactUs = () => {
           </Card>
         </Grid>
 
-        {/* Additional Section 2 */}
         <Grid item xs={12} md={6}>
           <Card elevation={3} sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Business Inquiries
               </Typography>
+              <hr />
               <Typography variant="body1">
                 For business-related inquiries and partnerships, please reach
                 out to our business development team.

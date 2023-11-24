@@ -28,7 +28,7 @@ const Testimonials = () => {
           textAlign: "center",
           font: "700px",
           mb: "26px",
-          color: "#00A19D",
+          color: "primary",
         }}
         gutterBottom
       >
