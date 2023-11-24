@@ -1,6 +1,6 @@
 import Banner from "../../Componants/Banner/Banner";
 import Testimonials from "../../Componants/Testimonials/Testimonials";
-import PopularCamp from "../../PopularCamp/PopularCamp";
+import PopularCamp from "../../PopularCamps/PopularCamps";
 
 const Home = () => {
   return (

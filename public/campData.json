@@ -1,0 +1,278 @@
+[
+    {
+      "campName": "Health Wellness Expo",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "campFees": "$50",
+      "scheduledDateTime": "2023-12-15T09:00:00",
+      "venueLocation": "City Convention Center",
+      "specializedServices": ["Health Screenings", "Nutritional Consultations"],
+      "healthcareProfessionals": ["Dr. Smith (Cardiologist)", "Nutritionist Johnson"],
+      "targetAudience": "Open to all age groups",
+      "description": "Join us at the Health Wellness Expo for a day of health screenings, nutritional consultations, and expert advice. Our team of healthcare professionals, including renowned cardiologist Dr. Smith and nutritionist Johnson, will be in attendance to provide personalized guidance. Open to all age groups, this event aims to promote overall well-being and provide valuable insights into maintaining a healthy lifestyle."
+    },
+    {
+      "campName": "Pediatric Vaccination Drive",
+      "image": "https://i.ibb.co/6Jm0dy3/healthwellnessexpo.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-11-30T10:00:00",
+      "venueLocation": "Community Health Center",
+      "specializedServices": ["Pediatric Vaccinations", "Child Health Education"],
+      "healthcareProfessionals": ["Dr. Anderson (Pediatrician)", "Nurse Rodriguez"],
+      "targetAudience": "Children aged 0-12 and their parents",
+      "description": "Ensure your child's health with our Pediatric Vaccination Drive! Led by experienced pediatrician Dr. Anderson and supported by Nurse Rodriguez, we offer free vaccinations for children aged 0-12. In addition to vaccinations, our team provides valuable child health education to parents, empowering them to make informed healthcare decisions for their little ones."
+    },
+    {
+      "campName": "Women's Health Symposium",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "campFees": "$30",
+      "scheduledDateTime": "2023-12-10T13:30:00",
+      "venueLocation": "Community Center Auditorium",
+      "specializedServices": ["Women's Health Screenings", "Gynecological Consultations"],
+      "healthcareProfessionals": ["Dr. Johnson (OB-GYN)", "Women's Health Nurse Smith"],
+      "targetAudience": "Women of all ages",
+      "description": "Empower yourself with knowledge at the Women's Health Symposium! Join OB-GYN specialist Dr. Johnson and Women's Health Nurse Smith for health screenings, gynecological consultations, and discussions on women's wellness. This event is designed for women of all ages, providing a supportive environment to address health concerns and promote overall well-being."
+    },
+    {
+      "campName": "Senior Health Fair",
+      "image": "https://i.ibb.co/6Jm0dy3/healthwellnessexpo.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2024-01-05T11:00:00",
+      "venueLocation": "Senior Community Center",
+      "specializedServices": ["Senior Health Assessments", "Medication Consultations"],
+      "healthcareProfessionals": ["Dr. Miller (Geriatrician)", "Pharmacist Brown"],
+      "targetAudience": "Seniors aged 65 and above",
+      "description": "Promote healthy aging at our Senior Health Fair! Led by geriatrician Dr. Miller and pharmacist Brown, this event offers free health assessments for seniors aged 65 and above. From senior health screenings to medication consultations, our dedicated professionals are here to support the health and well-being of our senior community."
+    },
+    {
+      "campName": "Mental Health Awareness Workshop",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "campFees": "$20",
+      "scheduledDateTime": "2023-11-25T15:00:00",
+      "venueLocation": "Wellness Center",
+      "specializedServices": ["Mental Health Seminars", "Counseling Sessions"],
+      "healthcareProfessionals": ["Psychiatrist Dr. Taylor", "Licensed Counselor Davis"],
+      "targetAudience": "Open to all individuals",
+      "description": "Prioritize your mental well-being at our Mental Health Awareness Workshop! Join psychiatrist Dr. Taylor and licensed counselor Davis for insightful seminars, counseling sessions, and resources to support mental health. This event is open to all individuals, fostering a safe space for open discussions and promoting mental health awareness."
+    },
+    {
+      "campName": "Cardiovascular Health Expo",
+      "image": "https://i.ibb.co/6Jm0dy3/healthwellnessexpo.jpg",
+      "campFees": "$25",
+      "scheduledDateTime": "2023-12-08T14:00:00",
+      "venueLocation": "Cardio Health Institute",
+      "specializedServices": ["Cardiac Screenings", "Fitness Consultations"],
+      "healthcareProfessionals": ["Dr. Rodriguez (Cardiologist)", "Fitness Trainer Martinez"],
+      "targetAudience": "Individuals concerned about heart health",
+      "description": "Take charge of your heart health at the Cardiovascular Health Expo! Led by renowned cardiologist Dr. Rodriguez and fitness trainer Martinez, this event offers cardiac screenings, fitness consultations, and expert advice on maintaining a healthy heart. Open to individuals of all ages who are concerned about their cardiovascular well-being."
+    },
+    {
+      "campName": "Dental Care Clinic",
+      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2024-02-01T12:30:00",
+      "venueLocation": "Community Dental Center",
+      "specializedServices": ["Dental Checkups", "Oral Health Education"],
+      "healthcareProfessionals": ["Dr. Martinez (Dentist)", "Dental Hygienist Johnson"],
+      "targetAudience": "All community members",
+      "description": "Smile confidently with our Dental Care Clinic! Join dentist Dr. Martinez and dental hygienist Johnson for free dental checkups and oral health education. Open to all community members, this clinic aims to promote dental health awareness and provide access to essential dental care services."
+    },
+    {
+      "campName": "Diabetes Management Workshop",
+      "image": "https://i.ibb.co/6Jm0dy3/healthwellnessexpo.jpg",
+      "campFees": "$15",
+      "scheduledDateTime": "2023-11-20T16:30:00",
+      "venueLocation": "Community Health & Wellness Center",
+      "specializedServices": ["Blood Sugar Monitoring", "Nutritional Counseling"],
+      "healthcareProfessionals": ["Endocrinologist Dr. Brown", "Registered Dietitian Davis"],
+      "targetAudience": "Individuals living with diabetes",
+      "description": "Empower yourself with our Diabetes Management Workshop! Led by endocrinologist Dr. Brown and registered dietitian Davis, this workshop provides blood sugar monitoring, nutritional counseling, and valuable resources for individuals living with diabetes. Join us for an informative session focused on effective diabetes management."
+    },
+    {
+      "campName": "Allergy Awareness Day",
+      "image": "https://example.com/allergy-awareness-day.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-12-05T11:30:00",
+      "venueLocation": "Allergy Center",
+      "specializedServices": ["Allergy Testing", "Consultations with Allergists"],
+      "healthcareProfessionals": ["Allergist Dr. Taylor", "Allergy Nurse Anderson"],
+      "targetAudience": "Individuals with allergies and their families",
+      "description": "Join us for Allergy Awareness Day! Allergist Dr. Taylor and allergy nurse Anderson will provide free allergy testing and consultations. This event is open to individuals with allergies and their families, offering valuable insights into allergy management and creating an allergy-aware community."
+    },
+    {
+      "campName": "Vision and Eye Care Fair",
+      "image": "https://example.com/vision-eye-care-fair.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-11-28T10:00:00",
+      "venueLocation": "Community Vision Center",
+      "specializedServices": ["Eye Exams", "Vision Screenings"],
+      "healthcareProfessionals": ["Optometrist Dr. Davis", "Ophthalmic Technician Martinez"],
+      "targetAudience": "All age groups",
+      "description": "See clearly at our Vision and Eye Care Fair! Join optometrist Dr. Davis and ophthalmic technician Martinez for free eye exams and vision screenings. Open to all age groups, this fair promotes the importance of vision care and provides access to essential eye health services."
+    },
+    {
+      "campName": "Community Blood Donation Drive",
+      "image": "https://example.com/blood-donation-drive.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-12-18T12:00:00",
+      "venueLocation": "Community Center",
+      "specializedServices": ["Blood Donation", "Health Checkups"],
+      "healthcareProfessionals": ["Phlebotomist Johnson", "Nurse Anderson"],
+      "targetAudience": "Community members willing to donate blood",
+      "description": "Give the gift of life at our Community Blood Donation Drive! Join phlebotomist Johnson and nurse Anderson for blood donation and health checkups. Open to community members willing to donate blood, this drive aims to support local blood banks and raise awareness about the importance of blood donation."
+    },
+    {
+      "campName": "Cancer Prevention Seminar",
+      "image": "https://example.com/cancer-prevention-seminar.jpg",
+      "campFees": "$10",
+      "scheduledDateTime": "2023-12-01T14:30:00",
+      "venueLocation": "Cancer Care Center",
+      "specializedServices": ["Cancer Risk Assessments", "Educational Seminars"],
+      "healthcareProfessionals": ["Oncologist Dr. Smith", "Cancer Educator Davis"],
+      "targetAudience": "Adults interested in cancer prevention",
+      "description": "Take proactive steps for your health at the Cancer Prevention Seminar! Led by oncologist Dr. Smith and cancer educator Davis, this seminar offers cancer risk assessments and educational sessions. Open to adults interested in cancer prevention, this event aims to empower individuals with knowledge to reduce cancer risks."
+    },
+    {
+      "campName": "Sports Injury Prevention Workshop",
+      "image": "https://example.com/sports-injury-prevention-workshop.jpg",
+      "campFees": "$15",
+      "scheduledDateTime": "2023-11-22T16:00:00",
+      "venueLocation": "Sports Wellness Center",
+      "specializedServices": ["Injury Prevention Strategies", "Fitness Assessments"],
+      "healthcareProfessionals": ["Sports Medicine Dr. Anderson", "Physical Therapist Martinez"],
+      "targetAudience": "Athletes and sports enthusiasts",
+      "description": "Stay active and injury-free with our Sports Injury Prevention Workshop! Join sports medicine Dr. Anderson and physical therapist Martinez for injury prevention strategies and fitness assessments. This workshop is designed for athletes and sports enthusiasts, providing valuable insights into maintaining optimal sports wellness."
+    },
+    {
+      "campName": "Maternal Health and Pregnancy Workshop",
+      "image": "https://example.com/maternal-health-workshop.jpg",
+      "campFees": "$20",
+      "scheduledDateTime": "2024-01-15T11:00:00",
+      "venueLocation": "Maternity Care Center",
+      "specializedServices": ["Prenatal Health Workshops", "Maternity Checkups"],
+      "healthcareProfessionals": ["Obstetrician Dr. Johnson", "Maternity Nurse Martinez"],
+      "targetAudience": "Expecting mothers and their partners",
+      "description": "Prepare for a healthy pregnancy journey at our Maternal Health and Pregnancy Workshop! Led by obstetrician Dr. Johnson and maternity nurse Martinez, this workshop offers prenatal health workshops and maternity checkups. Open to expecting mothers and their partners, this event provides essential guidance for a healthy and informed pregnancy."
+    },
+    {
+      "campName": "Nutrition and Wellness Expo",
+      "image": "https://example.com/nutrition-wellness-expo.jpg",
+      "campFees": "$25",
+      "scheduledDateTime": "2023-12-12T13:00:00",
+      "venueLocation": "Wellness Pavilion",
+      "specializedServices": ["Nutritional Seminars", "Healthy Cooking Demonstrations"],
+      "healthcareProfessionals": ["Nutritionist Dr. Davis", "Chef Martinez"],
+      "targetAudience": "Health enthusiasts and individuals interested in nutrition",
+      "description": "Embark on a journey to well-being at the Nutrition and Wellness Expo! Join nutritionist Dr. Davis and chef Martinez for nutritional seminars and healthy cooking demonstrations. Open to health enthusiasts and individuals interested in nutrition, this expo aims to inspire and educate on the importance of a balanced and nutritious lifestyle."
+    },
+    {
+      "campName": "Respiratory Health Awareness Day",
+      "image": "https://example.com/respiratory-health-awareness-day.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-12-09T14:30:00",
+      "venueLocation": "Respiratory Care Center",
+      "specializedServices": ["Lung Function Tests", "Smoking Cessation Counseling"],
+      "healthcareProfessionals": ["Pulmonologist Dr. Anderson", "Respiratory Therapist Johnson"],
+      "targetAudience": "Individuals with respiratory concerns",
+      "description": "Breathe easy at our Respiratory Health Awareness Day! Led by pulmonologist Dr. Anderson and respiratory therapist Johnson, this event offers lung function tests and smoking cessation counseling. Open to individuals with respiratory concerns, this awareness day aims to promote lung health and provide support for those managing respiratory conditions."
+    },
+    {
+      "campName": "Healthy Aging Seminar",
+      "image": "https://example.com/healthy-aging-seminar.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2024-02-10T15:30:00",
+      "venueLocation": "Senior Wellness Center",
+      "specializedServices": ["Senior Health Assessments", "Mindfulness Workshops"],
+      "healthcareProfessionals": ["Geriatrician Dr. Smith", "Wellness Coach Davis"],
+      "targetAudience": "Seniors and individuals interested in healthy aging",
+      "description": "Embrace a vibrant and active lifestyle at our Healthy Aging Seminar! Join geriatrician Dr. Smith and wellness coach Davis for senior health assessments and mindfulness workshops. Open to seniors and individuals interested in healthy aging, this seminar provides valuable insights into maintaining vitality and well-being as you age."
+    },
+    {
+      "campName": "Women's Heart Health Workshop",
+      "image": "https://example.com/womens-heart-health-workshop.jpg",
+      "campFees": "$15",
+      "scheduledDateTime": "2023-12-18T16:00:00",
+      "venueLocation": "Heart Care Institute",
+      "specializedServices": ["Cardiac Screenings for Women", "Heart-Healthy Cooking Demos"],
+      "healthcareProfessionals": ["Cardiologist Dr. Rodriguez", "Chef Johnson"],
+      "targetAudience": "Women of all ages",
+      "description": "Join us for a Women's Heart Health Workshop, where cardiologist Dr. Rodriguez and Chef Johnson will provide cardiac screenings for women and heart-healthy cooking demonstrations. Open to women of all ages, this workshop aims to raise awareness about heart health and encourage a heart-healthy lifestyle."
+    },
+    {
+      "campName": "Pediatric Asthma Awareness Day",
+      "image": "https://example.com/pediatric-asthma-awareness-day.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-12-03T11:30:00",
+      "venueLocation": "Pediatric Respiratory Center",
+      "specializedServices": ["Asthma Education for Parents", "Pediatric Pulmonary Function Tests"],
+      "healthcareProfessionals": ["Pediatric Pulmonologist Dr. Taylor", "Respiratory Nurse Davis"],
+      "targetAudience": "Parents of children with asthma",
+      "description": "Raise awareness about pediatric asthma at our Pediatric Asthma Awareness Day! Pediatric pulmonologist Dr. Taylor and respiratory nurse Davis will provide asthma education for parents and pediatric pulmonary function tests for children. Open to parents of children with asthma, this event aims to empower parents with knowledge and support for managing pediatric asthma."
+    },
+    {
+      "campName": "Orthopedic Health Seminar",
+      "image": "https://example.com/orthopedic-health-seminar.jpg",
+      "campFees": "$20",
+      "scheduledDateTime": "2024-01-20T14:30:00",
+      "venueLocation": "Orthopedic Center",
+      "specializedServices": ["Bone Density Testing", "Orthopedic Consultations"],
+      "healthcareProfessionals": ["Orthopedic Specialist Dr. Anderson", "Physical Therapist Smith"],
+      "targetAudience": "Individuals with orthopedic concerns",
+      "description": "Focus on your orthopedic health at our Orthopedic Health Seminar! Orthopedic specialist Dr. Anderson and physical therapist Smith will offer bone density testing and orthopedic consultations. Open to individuals with orthopedic concerns, this seminar aims to provide insights into bone health and offer guidance for maintaining a healthy musculoskeletal system."
+    },
+    {
+      "campName": "Dermatology Awareness Day",
+      "image": "https://example.com/dermatology-awareness-day.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2023-12-07T12:00:00",
+      "venueLocation": "Dermatology Clinic",
+      "specializedServices": ["Skin Cancer Screenings", "Dermatological Consultations"],
+      "healthcareProfessionals": ["Dermatologist Dr. Martinez", "Skin Care Specialist Johnson"],
+      "targetAudience": "Individuals concerned about skin health",
+      "description": "Prioritize your skin health at Dermatology Awareness Day! Dermatologist Dr. Martinez and skin care specialist Johnson will provide skin cancer screenings and dermatological consultations. Open to individuals concerned about skin health, this awareness day aims to promote skin wellness and raise awareness about the importance of dermatological care."
+    },
+    {
+      "campName": "Childhood Nutrition Fair",
+      "image": "https://example.com/childhood-nutrition-fair.jpg",
+      "campFees": "$10",
+      "scheduledDateTime": "2023-12-14T13:30:00",
+      "venueLocation": "Children's Wellness Center",
+      "specializedServices": ["Nutrition Workshops for Parents", "Childhood BMI Assessments"],
+      "healthcareProfessionals": ["Pediatric Nutritionist Dr. Davis", "Health Educator Martinez"],
+      "targetAudience": "Parents and caregivers of young children",
+      "description": "Nurture healthy eating habits at our Childhood Nutrition Fair! Pediatric nutritionist Dr. Davis and health educator Martinez will conduct nutrition workshops for parents and childhood BMI assessments. Open to parents and caregivers of young children, this fair aims to provide guidance on fostering a nutritious diet for children."
+    },
+    {
+      "campName": "Substance Abuse Prevention Workshop",
+      "image": "https://example.com/substance-abuse-prevention-workshop.jpg",
+      "campFees": "$15",
+      "scheduledDateTime": "2023-12-01T16:30:00",
+      "venueLocation": "Substance Abuse Center",
+      "specializedServices": ["Substance Abuse Counseling", "Educational Sessions"],
+      "healthcareProfessionals": ["Addiction Specialist Dr. Johnson", "Counselor Davis"],
+      "targetAudience": "Individuals interested in substance abuse prevention",
+      "description": "Take a proactive approach to substance abuse prevention at our Substance Abuse Prevention Workshop! Addiction specialist Dr. Johnson and counselor Davis will provide substance abuse counseling and educational sessions. Open to individuals interested in substance abuse prevention, this workshop aims to raise awareness and offer support for a substance-free lifestyle."
+    },
+    {
+      "campName": "Community Mental Wellness Day",
+      "image": "https://example.com/community-mental-wellness-day.jpg",
+      "campFees": "Free",
+      "scheduledDateTime": "2024-02-05T15:00:00",
+      "venueLocation": "Community Mental Health Center",
+      "specializedServices": ["Mental Health Screenings", "Therapeutic Art Sessions"],
+      "healthcareProfessionals": ["Psychiatrist Dr. Davis", "Art Therapist Johnson"],
+      "targetAudience": "Community members of all ages",
+      "description": "Prioritize mental wellness at our Community Mental Wellness Day! Psychiatrist Dr. Davis and art therapist Johnson will provide mental health screenings and therapeutic art sessions. Open to community members of all ages, this day aims to foster mental well-being and provide a supportive environment for mental health discussions."
+    },
+    {
+      "campName": "Gastrointestinal Health Seminar",
+      "image": "https://example.com/gastrointestinal-health-seminar.jpg",
+      "campFees": "$20",
+      "scheduledDateTime": "2023-12-11T14:30:00",
+      "venueLocation": "Gastroenterology Center",
+      "specializedServices": ["Digestive Health Screenings", "Nutritional Consultations"],
+      "healthcareProfessionals": ["Gastroenterologist Dr. Smith", "Nutritionist Martinez"],
+      "targetAudience": "Individuals with gastrointestinal concerns",
+      "description": "Focus on your gastrointestinal health at our Gastrointestinal Health Seminar! Gastroenterologist Dr. Smith and nutritionist Martinez will offer digestive health screenings and nutritional consultations."
+    }
+  ]
+    
