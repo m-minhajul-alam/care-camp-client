@@ -107,9 +107,6 @@ const AvailableCamps = () => {
           </Grid>
         ))}
       </Grid>
-
-
-      
     </Container>
   );
 };

@@ -4,6 +4,7 @@ import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import AvailableCamps from "../Pages/AvailableCamps/AvailableCamps";
 import CampDetail from "../Pages/CampDetail/CampDetail";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/campDetail/:id",
         element: <CampDetail></CampDetail>,
-        // loader: ({ params }) => fetch(`campData.json/${params.id}`)
+      },
+      {
+        path: "/contactUs",
+        element: <ContactUs></ContactUs>,
       },
     ],
   },
