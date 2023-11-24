@@ -13,8 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { HealthAndSafety } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-const pages = ["Home", "Camps", "Dashbord", "Contact Us"];
+const pages = ["Camps", "Dashbord", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
@@ -47,18 +48,18 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            // href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
             }}
           >
-            CareCamp
+            <Link style={{ textDecoration: "none", color: "inherit" }}>
+              CareCamp
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -92,7 +93,14 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{ textDecoration: "none", color: "black" }}
+                      to={`/${page}`}
+                    >
+                      {page}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -123,7 +131,12 @@ function NavBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/${page}`}
+                >
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>
