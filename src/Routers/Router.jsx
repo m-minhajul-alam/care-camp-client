@@ -14,6 +14,9 @@ import ParticipantProfile from "../Pages/Dashboard/Participant/ParticipantProfil
 import PaymentHistory from "../Pages/Dashboard/Participant/PaymentHistory";
 import Feedback from "../Pages/Dashboard/Participant/Feedback";
 import RegisteredCamps from "../Pages/Dashboard/Participant/RegisteredCamps";
+import AddCamp from "../Pages/Dashboard/Organizer/AddCamp";
+import ManageCamps from "../Pages/Dashboard/Organizer/ManageCamps";
+import ManageRegisteredCamps from "../Pages/Dashboard/Organizer/ManageRegisteredCamps";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <OrganizerProfile></OrganizerProfile>,
+      },
+      {
+        path: "/dashboard/addCamp",
+        element: <AddCamp></AddCamp>,
+      },
+      {
+        path: "/dashboard/manageCamps",
+        element: <ManageCamps></ManageCamps>,
+      },
+      {
+        path: "/dashboard/manageRegisteredCamps",
+        element: <ManageRegisteredCamps></ManageRegisteredCamps>,
       },
 
       // HealthCare

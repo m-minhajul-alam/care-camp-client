@@ -15,9 +15,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
 import {
+  AddBusiness,
   Checklist,
   Feedback,
+  HolidayVillage,
   Home,
+  ManageSearch,
   Payment,
   Person,
 } from "@mui/icons-material";
@@ -51,6 +54,48 @@ const Dashboard = (props) => {
                   <Person />
                 </ListItemIcon>
                 <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Organizer AddCamp */}
+          <Link to={"/dashboard/addCamp"} style={{ textDecoration: "none" }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AddBusiness />
+                </ListItemIcon>
+                <ListItemText primary="Add Camp" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Organizer Manage Camps */}
+          <Link
+            to={"/dashboard/manageCamps"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HolidayVillage />
+                </ListItemIcon>
+                <ListItemText primary="Manage Camps" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Organizer Manage Registered Camps */}
+          <Link
+            to={"/dashboard/manageRegisteredCamps"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ManageSearch></ManageSearch>
+                </ListItemIcon>
+                <ListItemText primary="Manage Registered Camps" />
               </ListItemButton>
             </ListItem>
           </Link>
