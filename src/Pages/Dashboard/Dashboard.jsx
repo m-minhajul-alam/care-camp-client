@@ -14,7 +14,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
-import { Home, Person } from "@mui/icons-material";
+import {
+  Checklist,
+  Feedback,
+  Home,
+  Payment,
+  Person,
+} from "@mui/icons-material";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 
@@ -22,7 +28,6 @@ const drawerWidth = 240;
 
 const Dashboard = (props) => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -35,19 +40,98 @@ const Dashboard = (props) => {
       <Toolbar />
 
       <Divider />
+      {/* Organizer Dashboard */}
+      {user && (
+        <List>
+          {/* Organizer Profile */}
+          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+      )}
 
-      <List>
-        <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Person />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
-        </Link>
-      </List>
+      {/* Health Care Dashboard */}
+      {user && (
+        <List>
+          {/* Health Care Profile */}
+          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+      )}
+
+      {/* Participant Dashboard */}
+      {user && (
+        <List>
+          {/* Participant Profile */}
+          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Registered Camps */}
+          <Link
+            to={"/dashboard/registeredCamps"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Checklist />
+                </ListItemIcon>
+                <ListItemText primary="Registered Camps" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Payment History */}
+          <Link
+            to={"/dashboard/paymentHistory"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Payment />
+                </ListItemIcon>
+                <ListItemText primary="Payment History" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/* Feedback */}
+          <Link to={"/dashboard/feedback"} style={{ textDecoration: "none" }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Feedback />
+                </ListItemIcon>
+                <ListItemText primary="Feedback" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+      )}
 
       <Divider />
 

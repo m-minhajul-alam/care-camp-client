@@ -8,9 +8,12 @@ import ContactUs from "../Pages/ContactUs/ContactUs";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import SignUp from "../Pages/SinngUp/SingUp";
 import Login from "../Pages/Login/Login";
-import OrganizerProfile from "../Pages/Dashboard/Profile/OrganizerProfile";
-import HealthCareProfile from "../Pages/Dashboard/Profile/HealthCareProfile";
-import ParticipantProfile from "../Pages/Dashboard/Profile/ParticipantProfile";
+import OrganizerProfile from "../Pages/Dashboard/Organizer/OrganizerProfile";
+import HealthCareProfile from "../Pages/Dashboard/HelthCare/HealthCareProfile";
+import ParticipantProfile from "../Pages/Dashboard/Participant/ParticipantProfile";
+import PaymentHistory from "../Pages/Dashboard/Participant/PaymentHistory";
+import Feedback from "../Pages/Dashboard/Participant/Feedback";
+import RegisteredCamps from "../Pages/Dashboard/Participant/RegisteredCamps";
 
 const router = createBrowserRouter([
   {
@@ -41,17 +44,34 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     errorElement: <Error></Error>,
     children: [
+      // Organizer
       {
         path: "/dashboard",
         element: <OrganizerProfile></OrganizerProfile>,
       },
+
+      // HealthCare
       {
         path: "/dashboard",
         element: <HealthCareProfile></HealthCareProfile>,
       },
+
+      // Participant
       {
         path: "/dashboard",
         element: <ParticipantProfile></ParticipantProfile>,
+      },
+      {
+        path: "/dashboard/registeredCamps",
+        element: <RegisteredCamps></RegisteredCamps>,
+      },
+      {
+        path: "/dashboard/paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "/dashboard/feedback",
+        element: <Feedback></Feedback>,
       },
     ],
   },
