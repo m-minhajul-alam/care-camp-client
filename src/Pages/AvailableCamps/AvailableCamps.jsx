@@ -31,7 +31,7 @@ const AvailableCamps = () => {
   };
 
   return (
-    <Container sx={{ my: "68px" }}>
+    <Container sx={{ my: "28px" }}>
       <Typography
         variant="h4"
         sx={{

@@ -221,7 +221,10 @@ const NavBar = () => {
                   </MenuItem>
 
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography onClick={handelLogOut}>LogOut</Typography>
+                    {/* <Typography onClick={handelLogOut}>LogOut</Typography> */}
+                    <Button onClick={handelLogOut} variant="contained">
+                      LogOut
+                    </Button>
                   </MenuItem>
                 </Menu>
               </>
@@ -232,9 +235,8 @@ const NavBar = () => {
               >
                 <Button
                   variant="contained"
-                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Sing Up
+                  SingUp
                 </Button>
               </Link>
             )}

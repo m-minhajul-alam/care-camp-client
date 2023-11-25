@@ -1,4 +1,3 @@
-import * as React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,12 +15,13 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 
 const drawerWidth = 240;
 
-function Dashboard(props) {
+const Dashboard = (props) => {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -167,7 +167,7 @@ function Dashboard(props) {
       </Box>
     </Box>
   );
-}
+};
 
 Dashboard.propTypes = {
   /**
