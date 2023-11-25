@@ -22,6 +22,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import toast from "react-hot-toast";
+import { ArrowBack, Home } from "@mui/icons-material";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -170,6 +171,27 @@ const Login = () => {
             </Tooltip>
           </Grid>
         </Grid>
+      </Box>
+      <Box
+        sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}
+      >
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => window.history.back()}
+          sx={{ mt: 2, mr: 2 }}
+        >
+          <ArrowBack sx={{ mr: 1 }} /> Go Back
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/"
+          sx={{ mt: 2 }}
+        >
+          Go to Home <Home sx={{ ml: 1 }} />
+        </Button>
       </Box>
     </Container>
   );

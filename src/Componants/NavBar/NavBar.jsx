@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { HealthAndSafety } from "@mui/icons-material";
+import { HealthAndSafety, Login } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Pages/Providers/AuthProvider";
@@ -221,7 +221,6 @@ const NavBar = () => {
                   </MenuItem>
 
                   <MenuItem onClick={handleCloseUserMenu}>
-                    {/* <Typography onClick={handelLogOut}>LogOut</Typography> */}
                     <Button onClick={handelLogOut} variant="contained">
                       LogOut
                     </Button>
@@ -229,16 +228,45 @@ const NavBar = () => {
                 </Menu>
               </>
             ) : (
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/singup"}
-              >
-                <Button
-                  variant="contained"
+              <>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0, color: "white" }}
                 >
-                  SingUp
-                </Button>
-              </Link>
+                  <Login />
+                </IconButton>
+
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to={"/singup"}>
+                      {" "}
+                      <Button variant="contained">Sing Up</Button>
+                    </Link>
+                  </MenuItem>
+
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to={"/login"}>
+                      {" "}
+                      <Button variant="contained">Login</Button>
+                    </Link>
+                  </MenuItem>
+                </Menu>
+              </>
             )}
           </Box>
         </Toolbar>

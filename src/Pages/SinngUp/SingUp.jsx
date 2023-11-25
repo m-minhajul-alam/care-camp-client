@@ -16,7 +16,12 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  ArrowBack,
+  Home,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -226,6 +231,27 @@ const SignUp = () => {
             </Tooltip>
           </Grid>
         </Grid>
+      </Box>
+      <Box
+        sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}
+      >
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => window.history.back()}
+          sx={{ mt: 2, mr: 2 }}
+        >
+          <ArrowBack sx={{ mr: 1 }} /> Go Back
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/"
+          sx={{ mt: 2 }}
+        >
+          Go to Home <Home sx={{ ml: 1 }} />
+        </Button>
       </Box>
     </Container>
   );

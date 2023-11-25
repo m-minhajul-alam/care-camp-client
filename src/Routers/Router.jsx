@@ -8,6 +8,9 @@ import ContactUs from "../Pages/ContactUs/ContactUs";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import SignUp from "../Pages/SinngUp/SingUp";
 import Login from "../Pages/Login/Login";
+import OrganizerProfile from "../Pages/Dashboard/Profile/OrganizerProfile";
+import HealthCareProfile from "../Pages/Dashboard/Profile/HealthCareProfile";
+import ParticipantProfile from "../Pages/Dashboard/Profile/ParticipantProfile";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,20 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
     errorElement: <Error></Error>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <OrganizerProfile></OrganizerProfile>,
+      },
+      {
+        path: "/dashboard",
+        element: <HealthCareProfile></HealthCareProfile>,
+      },
+      {
+        path: "/dashboard",
+        element: <ParticipantProfile></ParticipantProfile>,
+      },
+    ],
   },
   {
     path: "/singup",

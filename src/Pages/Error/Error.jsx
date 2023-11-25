@@ -1,3 +1,4 @@
+import { ArrowBack, Home } from "@mui/icons-material";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -15,21 +16,21 @@ const ErrorPage = () => {
         exist. Please check the URL or go back to the previous page.
       </Typography>
       <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => window.history.back()}
+        sx={{ mt: 2, mr: 2 }}
+      >
+        <ArrowBack sx={{ mr: 1 }} /> Go Back
+      </Button>
+      <Button
         variant="contained"
         color="primary"
         component={Link}
         to="/"
-        sx={{ mt: 2, mr: 2 }}
-      >
-        Go to Home
-      </Button>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => window.history.back()}
         sx={{ mt: 2 }}
       >
-        Go Back
+        Go to Home <Home sx={{ ml: 1 }} />
       </Button>
     </Container>
   );
