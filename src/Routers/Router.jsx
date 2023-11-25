@@ -7,6 +7,7 @@ import CampDetail from "../Pages/CampDetail/CampDetail";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import SignUp from "../Pages/SinngUp/SingUp";
+import Login from "../Pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -35,10 +36,17 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
+    errorElement: <Error></Error>,
   },
   {
     path: "/singUp",
     element: <SignUp></SignUp>,
+    errorElement: <Error></Error>,
+  },
+  {
+    path: "/logIn",
+    element: <Login></Login>,
+    errorElement: <Error></Error>,
   },
 ]);
 
