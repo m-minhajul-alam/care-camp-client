@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
-import { AuthContext } from "../../Providers/AuthProvider";
+import { AuthContext } from "../Providers/AuthProvider";
 
-const OrganizerProfile = () => {
+const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const { user } = useContext(AuthContext);
@@ -152,4 +152,4 @@ const OrganizerProfile = () => {
   );
 };
 
-export default OrganizerProfile;
+export default Profile;

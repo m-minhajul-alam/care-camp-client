@@ -15,12 +15,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
 import {
-  AddBusiness,
+  Add,
+  AddAlarm,
+  AppRegistration,
   Checklist,
+  Construction,
+  ControlPointDuplicate,
   Feedback,
-  HolidayVillage,
   Home,
-  ManageSearch,
+  ManageHistory,
   Payment,
   Person,
 } from "@mui/icons-material";
@@ -43,34 +46,34 @@ const Dashboard = (props) => {
       <Toolbar />
 
       <Divider />
+      {/* Profile */}
+      <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Person />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItemButton>
+        </ListItem>
+      </Link>
+
       {/* Organizer Dashboard */}
       {user && (
         <List>
-          {/* Organizer Profile */}
-          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Person />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-
-          {/* Organizer AddCamp */}
+          {/*  AddCamp */}
           <Link to={"/dashboard/addCamp"} style={{ textDecoration: "none" }}>
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <AddBusiness />
+                  <Add />
                 </ListItemIcon>
                 <ListItemText primary="Add Camp" />
               </ListItemButton>
             </ListItem>
           </Link>
 
-          {/* Organizer Manage Camps */}
+          {/*  Manage Camps */}
           <Link
             to={"/dashboard/manageCamps"}
             style={{ textDecoration: "none" }}
@@ -78,14 +81,14 @@ const Dashboard = (props) => {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <HolidayVillage />
+                  <Construction />
                 </ListItemIcon>
                 <ListItemText primary="Manage Camps" />
               </ListItemButton>
             </ListItem>
           </Link>
 
-          {/* Organizer Manage Registered Camps */}
+          {/*  Manage Registered Camps */}
           <Link
             to={"/dashboard/manageRegisteredCamps"}
             style={{ textDecoration: "none" }}
@@ -93,26 +96,59 @@ const Dashboard = (props) => {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <ManageSearch></ManageSearch>
+                  <AppRegistration />
                 </ListItemIcon>
                 <ListItemText primary="Manage Registered Camps" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/*  Add Upcoming Camps */}
+          <Link
+            to={"/dashboard/addUpcomingCamp"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AddAlarm />
+                </ListItemIcon>
+                <ListItemText primary="Add Upcoming Camp" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+
+          {/*  Manage Upcoming Camps */}
+          <Link
+            to={"/dashboard/manageUpcomingCamps"}
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ManageHistory />
+                </ListItemIcon>
+                <ListItemText primary="Manage Upcoming Camps" />
               </ListItemButton>
             </ListItem>
           </Link>
         </List>
       )}
 
-      {/* Health Care Dashboard */}
+      {/* Health care Dashboard */}
       {user && (
         <List>
-          {/* Health Care Profile */}
-          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+          {/* Accepted Camps */}
+          <Link
+            to={"/dashboard/acceptedCamps"}
+            style={{ textDecoration: "none" }}
+          >
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <Person />
+                  <ControlPointDuplicate />
                 </ListItemIcon>
-                <ListItemText primary="Profile" />
+                <ListItemText primary="Accepted Camps" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -122,18 +158,6 @@ const Dashboard = (props) => {
       {/* Participant Dashboard */}
       {user && (
         <List>
-          {/* Participant Profile */}
-          <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Person />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-
           {/* Registered Camps */}
           <Link
             to={"/dashboard/registeredCamps"}

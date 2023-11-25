@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 const AddCamp = () => {
@@ -52,166 +53,172 @@ const AddCamp = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validate={validate}
-      onSubmit={onSubmit}
-    >
-      <Form style={{ maxWidth: "400px", margin: "auto" }}>
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="campName">Camp Name</label>
-          <Field
-            type="text"
-            id="campName"
-            name="campName"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="campName"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+    <>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Add Camp
+      </Typography>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="image">Image</label>
-          <Field
-            type="file"
-            id="image"
-            name="image"
-            style={{ width: "100%", height: "30px" }}
-          />
-          <ErrorMessage
-            name="image"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+      <Formik
+        initialValues={initialValues}
+        validate={validate}
+        onSubmit={onSubmit}
+      >
+        <Form style={{ maxWidth: "400px", margin: "auto" }}>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="campName">Camp Name</label>
+            <Field
+              type="text"
+              id="campName"
+              name="campName"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="campName"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="campFees">Camp Fees</label>
-          <Field
-            type="number"
-            id="campFees"
-            name="campFees"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="campFees"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="image">Image</label>
+            <Field
+              type="file"
+              id="image"
+              name="image"
+              style={{ width: "100%", height: "30px" }}
+            />
+            <ErrorMessage
+              name="image"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="scheduledDateTime">Scheduled Date and Time</label>
-          <Field
-            type="datetime-local"
-            id="scheduledDateTime"
-            name="scheduledDateTime"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="scheduledDateTime"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="campFees">Camp Fees</label>
+            <Field
+              type="number"
+              id="campFees"
+              name="campFees"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="campFees"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="venueLocation">Venue Location</label>
-          <Field
-            type="text"
-            id="venueLocation"
-            name="venueLocation"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="venueLocation"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="scheduledDateTime">Scheduled Date and Time</label>
+            <Field
+              type="datetime-local"
+              id="scheduledDateTime"
+              name="scheduledDateTime"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="scheduledDateTime"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="specializedService">
-            Specialized Services Provided
-          </label>
-          <Field
-            type="text"
-            id="specializedService"
-            name="specializedService"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="specializedService"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="venueLocation">Venue Location</label>
+            <Field
+              type="text"
+              id="venueLocation"
+              name="venueLocation"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="venueLocation"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="healthcareProfessional">
-            Healthcare Professionals in Attendance
-          </label>
-          <Field
-            type="text"
-            id="healthcareProfessional"
-            name="healthcareProfessional"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="healthcareProfessional"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="specializedService">
+              Specialized Services Provided
+            </label>
+            <Field
+              type="text"
+              id="specializedService"
+              name="specializedService"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="specializedService"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="targetAudience">Target Audience</label>
-          <Field
-            type="text"
-            id="targetAudience"
-            name="targetAudience"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="targetAudience"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="healthcareProfessional">
+              Healthcare Professionals in Attendance
+            </label>
+            <Field
+              type="text"
+              id="healthcareProfessional"
+              name="healthcareProfessional"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="healthcareProfessional"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="description">Comprehensive Description</label>
-          <Field
-            as="textarea"
-            id="description"
-            name="description"
-            style={{ width: "100%", height: "40px" }}
-          />
-          <ErrorMessage
-            name="description"
-            component="div"
-            style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
-          />
-        </div>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="targetAudience">Target Audience</label>
+            <Field
+              type="text"
+              id="targetAudience"
+              name="targetAudience"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="targetAudience"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
 
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "10px",
-            background: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Submit
-        </button>
-      </Form>
-    </Formik>
+          <div style={{ marginBottom: "10px" }}>
+            <label htmlFor="description">Comprehensive Description</label>
+            <Field
+              as="textarea"
+              id="description"
+              name="description"
+              style={{ width: "100%", height: "40px" }}
+            />
+            <ErrorMessage
+              name="description"
+              component="div"
+              style={{ color: "red", fontSize: "10px", fontWeight: "bold" }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              padding: "10px",
+              background: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+            }}
+          >
+            Submit
+          </button>
+        </Form>
+      </Formik>
+    </>
   );
 };
 
