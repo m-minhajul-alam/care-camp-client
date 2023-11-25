@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Container,
   Typography,
@@ -17,13 +17,19 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
+import { AuthContext } from "../Providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -39,17 +45,46 @@ const SignUp = () => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
     const role = form.role.value;
-    console.log(name, email, password, role);
+    const user = { name, email, password, role };
+    console.log(user);
+
+    // if (!/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(password)) {
+    //   toast.error(
+    //     "password should be minimum 6 characters, at least 1 capitel letter, 1 number and 1 special characte."
+    //   );
+    //   return;
+    // }
+
+    createUser(email, password)
+      .then((result) => {
+        event.target.reset();
+        toast.success("Sing Up Success");
+
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {})
+          .catch((error) => {
+            console.log(error);
+          });
+        navigate(location?.state ? location.state : "/");
+      })
+
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          my: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
