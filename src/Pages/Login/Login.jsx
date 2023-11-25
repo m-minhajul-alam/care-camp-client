@@ -13,7 +13,6 @@ import {
   TextField,
   Divider,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -53,16 +52,11 @@ const Login = () => {
           alignItems: "center",
         }}
       >
-        <LockOutlinedIcon sx={{ fontSize: "large" }} />
-        <Typography variant="h4" sx={{ mt: 2 }}>
+        <Typography variant="h4" color="primary" sx={{ my: 2 }}>
           Log in
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
-          sx={{ mt: 3, width: "100%" }}
-        >
+
+        <form onSubmit={handleSubmit} style={{ marginTop: 3, width: "100%" }}>
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12}>
               <TextField
@@ -74,6 +68,7 @@ const Login = () => {
                 autoComplete="email"
               />
             </Grid>
+
             <Grid item xs={12}>
               <FormControl sx={{ width: "100%" }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -96,10 +91,12 @@ const Login = () => {
                   }
                   label="Password"
                   name="password"
+                  required
                 />
               </FormControl>
             </Grid>
           </Grid>
+
           <Button
             type="submit"
             fullWidth
@@ -109,27 +106,28 @@ const Login = () => {
           >
             Log in
           </Button>
+        </form>
 
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Typography
-                component={Link}
-                to="/signUp"
-                style={{ textDecoration: "none", cursor: "pointer" }}
-              >
-                Do not have an account? Sign up
-              </Typography>
-            </Grid>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography
+              component={Link}
+              to="/singup"
+              style={{ textDecoration: "none", cursor: "pointer" }}
+            >
+              Do not have an account? Sing up
+            </Typography>
           </Grid>
+        </Grid>
 
-          <Grid container justifyContent="center" sx={{ my: 2 }}>
-            <Divider orientation="horizontal" sx={{ width: "100%" }}>
-              <Typography variant="body2" sx={{ mx: 2 }}>
-                Or log in with
-              </Typography>
-            </Divider>
-          </Grid>
-        </Box>
+        <Grid container justifyContent="center" sx={{ my: 2 }}>
+          <Divider orientation="horizontal" sx={{ width: "100%" }}>
+            <Typography variant="body2" sx={{ mx: 2 }}>
+              Or log in with
+            </Typography>
+          </Divider>
+        </Grid>
+
         <Grid container spacing={4} sx={{ mx: "auto" }}>
           <Grid item xs={4}>
             <Tooltip title="Log in with Google">

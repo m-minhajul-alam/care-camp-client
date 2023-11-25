@@ -8,176 +8,190 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Grid,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  Divider,
+  Tooltip,
 } from "@mui/material";
+import { Box } from "@mui/system";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    image: null,
-    email: "",
-    password: "",
-    role: "Participant",
-    question1: "",
-    question2: "",
-    question3: "",
-    question4: "",
-    question5: "",
-  });
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    setFormData({ ...formData, image: file });
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
+
+  const handleSocialLogin = () => {};
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Send formData to the backend for user registration
-    // ...
-
-    // Reset form data after submission
-    setFormData({
-      name: "",
-      image: null,
-      email: "",
-      password: "",
-      role: "Participant",
-      question1: "",
-      question2: "",
-      question3: "",
-      question4: "",
-      question5: "",
-    });
-  };
-
-  const renderAdditionalQuestions = () => {
-    if (formData.role === "HealthcareProfessional") {
-      return (
-        <>
-          <TextField
-            label="Do you have any allergies?"
-            fullWidth
-            value={formData.question1}
-            onChange={(e) => handleInputChange("question1", e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Do you have professional experience in healthcare?"
-            fullWidth
-            value={formData.question2}
-            onChange={(e) => handleInputChange("question2", e.target.value)}
-            margin="normal"
-          />
-        </>
-      );
-    }
-
-    if (formData.role === "Organizer") {
-      return (
-        <>
-          <TextField
-            label="Have you planned and organized events before?"
-            fullWidth
-            value={formData.question1}
-            onChange={(e) => handleInputChange("question1", e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Have you managed budgets for events in the past?"
-            fullWidth
-            value={formData.question2}
-            onChange={(e) => handleInputChange("question2", e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Have you successfully organized an event in the past?"
-            fullWidth
-            value={formData.question3}
-            onChange={(e) => handleInputChange("question3", e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Do you smoke or use tobacco products?"
-            fullWidth
-            value={formData.question4}
-            onChange={(e) => handleInputChange("question4", e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Have you ever been diagnosed with a chronic illness?"
-            fullWidth
-            value={formData.question5}
-            onChange={(e) => handleInputChange("question5", e.target.value)}
-            margin="normal"
-          />
-        </>
-      );
-    }
-
-    return null;
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const role = form.role.value;
+    console.log(name, email, password, role);
   };
 
   return (
-    <Container>
-      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Sign Up
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Name"
-          fullWidth
-          value={formData.name}
-          onChange={(e) => handleInputChange("name", e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          type="file"
-          label="Profile Image"
-          fullWidth
-          onChange={handleImageUpload}
-          margin="normal"
-        />
-        <TextField
-          label="Email"
-          fullWidth
-          value={formData.email}
-          onChange={(e) => handleInputChange("email", e.target.value)}
-          margin="normal"
-        />
-        <TextField
-          label="Password"
-          type="password"
-          fullWidth
-          value={formData.password}
-          onChange={(e) => handleInputChange("password", e.target.value)}
-          margin="normal"
-        />
-        <FormControl fullWidth margin="normal">
-          <InputLabel>Role</InputLabel>
-          <Select
-            value={formData.role}
-            onChange={(e) => handleInputChange("role", e.target.value)}
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h4" color="primary" sx={{ my: 2 }}>
+          Sing Up
+        </Typography>
+
+        <form onSubmit={handleSubmit} style={{ marginTop: 3, width: "100%" }}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="Name"
+                label="Your Name"
+                name="name"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField fullWidth id="url" label="Photo Url" name="photo" />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl sx={{ width: "100%" }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                  name="password"
+                  required
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel id="demo-simple-select-helper-label">
+                  SingUp as
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  label="Sing Up As"
+                  name="role"
+                  required
+                >
+                  <MenuItem value="Participant">Participant</MenuItem>
+                  <MenuItem value="HealthcareProfessional">
+                    Healthcare Professional
+                  </MenuItem>
+                  <MenuItem value="Organizer">Organizer</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <MenuItem value="Participant">Participant</MenuItem>
-            <MenuItem value="HealthcareProfessional">
-              Healthcare Professional
-            </MenuItem>
-            <MenuItem value="Organizer">Organizer</MenuItem>
-          </Select>
-        </FormControl>
-        {renderAdditionalQuestions()}
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2 }}
-        >
-          Sign Up
-        </Button>
-      </form>
+            Sing Up
+          </Button>
+        </form>
+
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography
+              component={Link}
+              to="/login"
+              style={{ textDecoration: "none", cursor: "pointer" }}
+            >
+              Alredy have an account? LogIn
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container justifyContent="center" sx={{ my: 2 }}>
+          <Divider orientation="horizontal" sx={{ width: "100%" }}>
+            <Typography variant="body2" sx={{ mx: 2 }}>
+              Or Sing Up with
+            </Typography>
+          </Divider>
+        </Grid>
+
+        <Grid container spacing={4} sx={{ mx: "auto" }}>
+          <Grid item xs={4}>
+            <Tooltip title="Sing Up with Google">
+              <IconButton
+                onClick={() => handleSocialLogin}
+                sx={{ fontSize: 30 }}
+              >
+                <GoogleIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid item xs={4}>
+            <Tooltip title="Coming Soon">
+              <IconButton sx={{ fontSize: 30 }} disabled>
+                <FacebookIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid item xs={4}>
+            <Tooltip title="Coming Soon">
+              <IconButton sx={{ fontSize: 30 }} disabled>
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
+      </Box>
     </Container>
   );
 };
