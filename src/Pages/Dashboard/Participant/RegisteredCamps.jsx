@@ -58,7 +58,9 @@ const RegisteredCamps = () => {
 
   return (
     <div>
-      <h1>Registered Camps</h1>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Registered Camps
+      </Typography>
       <table {...getTableProps()} style={{ width: "100%" }}>
         <thead>
           {headerGroups.map((headerGroup) => (

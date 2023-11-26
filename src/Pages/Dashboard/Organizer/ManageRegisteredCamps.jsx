@@ -1,6 +1,7 @@
 import React from "react";
 import { useTable } from "react-table";
 import campData from "../../../../public/campData.json";
+import { Typography } from "@mui/material";
 
 const ManageRegisteredCamps = () => {
   const columns = React.useMemo(
@@ -44,7 +45,9 @@ const ManageRegisteredCamps = () => {
 
   return (
     <div>
-      <h1>Manage Registered Camps</h1>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Manage Registered Camps
+      </Typography>
       <table {...getTableProps()} style={{ width: "100%" }}>
         <thead>
           {headerGroups.map((headerGroup) => (
