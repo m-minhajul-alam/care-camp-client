@@ -9,6 +9,8 @@
       "specializedServices": ["Health Screenings", "Nutritional Consultations"],
       "healthcareProfessionals": ["Dr. Smith (Cardiologist)", "Nutritionist Johnson"],
       "targetAudience": "Open to all age groups",
+      "paymentStatus" : "Paid",
+      "confirmationStatus" : "Confirmed",
       "description": "Join us at the Health Wellness Expo for a day of health screenings, nutritional consultations, and expert advice. Our team of healthcare professionals, including renowned cardiologist Dr. Smith and nutritionist Johnson, will be in attendance to provide personalized guidance. Open to all age groups, this event aims to promote overall well-being and provide valuable insights into maintaining a healthy lifestyle."
     },
     {
