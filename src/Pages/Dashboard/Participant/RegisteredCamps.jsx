@@ -1,60 +1,60 @@
 /* eslint-disable react/prop-types */
+import { useMemo, useState } from "react";
 import { useTable } from "react-table";
-import { useState } from "react";
+import { Button, Modal, Typography, Box } from "@mui/material";
 
 // Replace with your actual JSON data
 import campData from "../../../../public/campData.json";
+import { CancelOutlined } from "@mui/icons-material";
 
 const RegisteredCamps = () => {
   const [data, setData] = useState(campData);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedCampId, setSelectedCampId] = useState(null);
 
-  // Columns configuration
-  const columns = [
-    { Header: "Camp Name", accessor: "campName" },
-    { Header: "Date and Time", accessor: "scheduledDateTime" },
-    { Header: "Venue", accessor: "venueLocation" },
-    { Header: "Camp Fees", accessor: "campFees" },
-    { Header: "Payment Status", accessor: "paymentStatus" },
-    { Header: "Confirmation Status", accessor: "confirmationStatus" },
-    {
-      Header: "Actions",
-      accessor: "actions",
-      Cell: ({ row }) => (
-        <div>
-          <button
-            onClick={() => handleCancel(row.original.id)}
+  const columns = useMemo(
+    () => [
+      { Header: "Camp Name", accessor: "campName" },
+      { Header: "Date and Time", accessor: "scheduledDateTime" },
+      { Header: "Venue", accessor: "venueLocation" },
+      { Header: "Camp Fees", accessor: "campFees" },
+      { Header: "Payment Status", accessor: "paymentStatus" },
+      { Header: "Confirmation Status", accessor: "confirmationStatus" },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleCancelClick(row.original.id)}
             disabled={row.original.paymentStatus === "Paid"}
           >
-            Cancel
-          </button>
-        </div>
-      ),
-    },
-  ];
+            <CancelOutlined />
+          </Button>
+        ),
+      },
+    ],
+    []
+  );
 
-  const handleCancel = (campId) => {
-    // Implement confirmation dialog logic here
-    const confirmed = window.confirm("Are you sure you want to cancel?");
-    
-    if (confirmed) {
-      // Update the confirmation status and reflect changes in the table
-      const updatedData = data.map((camp) =>
-        camp.id === campId
-          ? { ...camp, confirmationStatus: "Cancelled" }
-          : camp
-      );
-      setData(updatedData);
-    }
+  const handleCancelClick = (campId) => {
+    setSelectedCampId(campId);
+    setOpenModal(true);
   };
 
-  // Use the useTable hook to create table instance
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data });
+  const handleCancelConfirm = () => {
+    const updatedData = data.map((camp) =>
+      camp.id === selectedCampId
+        ? { ...camp, confirmationStatus: "Cancelled" }
+        : camp
+    );
+    setData(updatedData);
+    setOpenModal(false);
+  };
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   return (
     <div>
@@ -86,6 +86,29 @@ const RegisteredCamps = () => {
           })}
         </tbody>
       </table>
+
+      {/* Modal for Cancel Confirmation */}
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography variant="h6" component="div">
+            Are you sure you want to cancel?
+          </Typography>
+          <Button onClick={handleCancelConfirm} color="secondary">
+            Yes
+          </Button>
+          <Button onClick={() => setOpenModal(false)}>No</Button>
+        </Box>
+      </Modal>
     </div>
   );
 };
