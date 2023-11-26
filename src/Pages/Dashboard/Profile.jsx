@@ -47,13 +47,13 @@ const Profile = () => {
   return (
     <Container>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Organizer Profile
+        Profile
       </Typography>
 
       <Box sx={{ textAlign: "center", mb: 3 }}>
         <img
           src={user?.photoURL}
-          alt="Organizer Image"
+          alt="Image"
           style={{ width: "100px", height: "100px", borderRadius: "50%" }}
         />
         <Typography variant="h6" color="primary" sx={{ mt: 2 }}></Typography>
