@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { useTable } from "react-table";
 import {
+  Container,
   Typography,
-  Modal,
+  Paper,
   Button,
+  Modal,
   Box,
   TextField,
   Rating,
 } from "@mui/material";
-
-// Replace with your actual JSON data
+import { useTable } from "react-table";
 import campData from "../../../../public/campData.json";
 
 const Feedback = () => {
-  // Filter data for paid and completed camps
   const filteredData = campData.filter(
     (camp) =>
       camp.paymentStatus === "Paid" && camp.confirmationStatus === "Confirmed"
@@ -48,38 +47,74 @@ const Feedback = () => {
     useTable({ columns, data });
 
   return (
-    <div>
-      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Feedback
-      </Typography>
-      <table {...getTableProps()} style={{ width: "100%" }}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th key={column.id} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
+    <>
+      <Container>
+        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+          Feedback
+        </Typography>
+
+        <Paper
+          elevation={3}
+          sx={{
+            overflow: "auto",
+            margin: "auto",
+            width: "80%",
+            maxWidth: "100%",
+          }}
+        >
+          <table
+            {...getTableProps()}
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              border: "1px solid #ddd",
+            }}
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  key={headerGroup.id}
+                  {...headerGroup.getHeaderGroupProps()}
+                  style={{ borderBottom: "2px solid #ddd" }}
+                >
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      key={column.id}
+                      {...column.getHeaderProps()}
+                      style={{ border: "1px solid #ddd", padding: "8px" }}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr key={row.id} {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td key={cell.row.id} {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    key={row.id}
+                    {...row.getRowProps()}
+                    style={{ borderBottom: "1px solid #ddd" }}
+                  >
+                    {row.cells.map((cell) => (
+                      <td
+                        key={cell.row.id}
+                        {...cell.getCellProps()}
+                        style={{ border: "1px solid #ddd", padding: "8px" }}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Paper>
+      </Container>
+    </>
   );
 };
 
@@ -96,8 +131,6 @@ const ReviewButton = ({ campId, campName }) => {
   };
 
   const handleSubmitReview = () => {
-    // Handle the submission of feedback and ratings
-    // You can implement the logic to save the feedback and ratings
     console.log("Feedback submitted for camp:", campName);
     handleClose();
   };

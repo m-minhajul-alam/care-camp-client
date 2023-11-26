@@ -1,9 +1,24 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  Paper,
+  IconButton,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import { useTable } from "react-table";
 import campData from "../../../../public/campData.json";
-import { Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ManageRegisteredCamps = () => {
+  const data = React.useMemo(() => campData, [campData]);
+
   const columns = React.useMemo(
     () => [
       {
@@ -33,49 +48,134 @@ const ManageRegisteredCamps = () => {
       {
         Header: "Actions",
         accessor: "actions",
+        Cell: ({ row }) => (
+          <>
+            <IconButton onClick={() => handleEdit(row.original)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => openDeleteDialog(row.original)}>
+              <DeleteIcon />
+            </IconButton>
+          </>
+        ),
       },
     ],
     []
   );
 
-  const data = React.useMemo(() => campData, [campData]);
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
+  const handleEdit = (camp) => {
+    console.log("Edit camp:", camp);
+  };
+
+  const handleDelete = (camp) => {
+    console.log("Delete camp:", camp);
+  };
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedCamp, setSelectedCamp] = useState(null);
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+    setSelectedCamp(null);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedCamp) {
+      handleDelete(selectedCamp);
+      handleDialogClose();
+    }
+  };
+
+  const openDeleteDialog = (camp) => {
+    setSelectedCamp(camp);
+    setOpenDialog(true);
+  };
+
   return (
-    <div>
-      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Manage Registered Camps
-      </Typography>
-      <table {...getTableProps()} style={{ width: "100%" }}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th key={column.id} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
+    <>
+      <Container>
+        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+          Manage Registered Camps
+        </Typography>
+
+        <Paper
+          elevation={3}
+          sx={{
+            overflow: "auto",
+            margin: "auto",
+            width: "80%",
+            maxWidth: "100%",
+          }}
+        >
+          <table
+            {...getTableProps()}
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              border: "1px solid #ddd",
+            }}
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  key={headerGroup.id}
+                  {...headerGroup.getHeaderGroupProps()}
+                  style={{ borderBottom: "2px solid #ddd" }}
+                >
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      key={column.id}
+                      {...column.getHeaderProps()}
+                      style={{ border: "1px solid #ddd", padding: "8px" }}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr key={row.id} {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td key={cell.column.id} {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    key={row.id}
+                    {...row.getRowProps()}
+                    style={{ borderBottom: "1px solid #ddd" }}
+                  >
+                    {row.cells.map((cell) => (
+                      <td
+                        key={cell.column.id}
+                        {...cell.getCellProps()}
+                        style={{ border: "1px solid #ddd", padding: "8px" }}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Paper>
+
+        <Dialog open={openDialog} onClose={handleDialogClose}>
+          <DialogTitle>Delete Confirmation</DialogTitle>
+          <DialogContent>
+            Are you sure you want to delete the camp?
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose}>Cancel</Button>
+            <Button onClick={handleDeleteConfirm} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Container>
+    </>
   );
 };
 
