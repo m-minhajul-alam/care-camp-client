@@ -8,11 +8,18 @@ import {
   Typography,
   Container,
   Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 
 const PopularCamps = () => {
   const [camps, setCamps] = useState([]);
   const [participantCounts, setParticipantCounts] = useState({});
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedCampForRegistration, setSelectedCampForRegistration] =
+    useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,10 +36,20 @@ const PopularCamps = () => {
   }, []);
 
   const handleRegister = (campName) => {
+    setSelectedCampForRegistration(campName);
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleRegisterConfirmation = (campName) => {
     setParticipantCounts((prevCounts) => ({
       ...prevCounts,
       [campName]: (prevCounts[campName] || 0) + 1,
     }));
+    setOpenDialog(false);
   };
 
   return (
@@ -111,6 +128,27 @@ const PopularCamps = () => {
           See All Camps
         </Button>
       </div>
+
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogTitle>Register Confirmation</DialogTitle>
+        <DialogContent>
+          Are you sure you want to register for the camp?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() =>
+              handleRegisterConfirmation(selectedCampForRegistration)
+            }
+            variant="contained"
+            color="primary"
+          >
+            Yes
+          </Button>
+          <Button variant="outlined" onClick={handleDialogClose}>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
