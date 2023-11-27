@@ -52,7 +52,9 @@ const PopularCamps = () => {
       <Grid container spacing={2}>
         {camps.slice(0, 6).map((camp) => (
           <Grid item key={camp.campName} xs={12} sm={6} md={4} lg={4} xl={4}>
-            <Card sx={{ height: "100%" }}>
+            <Card
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
               <img
                 src={camp.image}
                 alt={camp.campName}
@@ -80,11 +82,21 @@ const PopularCamps = () => {
                   {participantCounts[camp.campName] || 0}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button onClick={() => handleRegister(camp.campName)}>
+              <CardActions style={{ marginTop: "auto" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleRegister(camp.campName)}
+                  style={{ marginRight: "auto" }}
+                >
                   Register
                 </Button>
-                <Button component={Link} to={`/campDetail/${camp.id}`}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  component={Link}
+                  to={`/campDetail/${camp.id}`}
+                >
                   Details
                 </Button>
               </CardActions>
