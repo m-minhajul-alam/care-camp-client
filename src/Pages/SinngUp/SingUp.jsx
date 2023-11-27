@@ -29,12 +29,15 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { AuthContext } from "../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+// import axios from "axios";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -54,8 +57,8 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const role = form.role.value;
-    const user = { name, email, password, role };
-    console.log(user);
+    const userInfo = { name, email, password, role };
+    console.log(userInfo);
 
     // if (!/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(password)) {
     //   toast.error(
@@ -66,9 +69,8 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        event.target.reset();
-        toast.success("Sing Up Success");
-
+        // event.target.reset();
+        // toast.success("Sing Up Success");
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,
@@ -77,9 +79,24 @@ const SignUp = () => {
           .catch((error) => {
             console.log(error);
           });
-        navigate(location?.state ? location.state : "/");
-      })
 
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => {
+            console.log("Server Response:", res);
+
+            if (res.data.insertedId) {
+              console.log("user added to the database");
+              event.target.reset();
+              toast.success("Sign Up Success");
+              navigate(location?.state ? location.state : "/");
+            }
+          })
+          .catch((error) => {
+            console.error("Error in Axios Request:", error);
+            // Handle the error, show an appropriate message, etc.
+          });
+      })
       .catch((error) => {
         toast.error(error.message);
       });
