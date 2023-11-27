@@ -18,6 +18,7 @@ import Profile from "../Pages/Dashboard/Profile";
 import AddUpcomingCamp from "../Pages/Dashboard/Organizer/AddUpcomingCamp";
 import ManageUpcomingCamps from "../Pages/Dashboard/Organizer/ManageUpcomingCamps";
 import AcceptedCamps from "../Pages/Dashboard/HelthCare/AcceptedCamps";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,11 +32,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/availableCamps",
-        element: <AvailableCamps></AvailableCamps>,
+        element: (
+          <PrivateRoute>
+            <AvailableCamps></AvailableCamps>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/campDetail/:id",
-        element: <CampDetail></CampDetail>,
+        element: (
+          <PrivateRoute>
+            <CampDetail></CampDetail>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/contactUs",
@@ -45,7 +54,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     errorElement: <Error></Error>,
     children: [
       {

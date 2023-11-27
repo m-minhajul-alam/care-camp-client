@@ -91,38 +91,43 @@ const NavBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={"/"}
-                >
+              <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
+                <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={"/availableCamps"}
-                >
-                  <Typography textAlign="center">Available Camps</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={"/dashboard"}
-                >
-                  <Typography textAlign="center">Dashbord</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={"/contactUs"}
-                >
+                </MenuItem>
+              </Link>
+
+              {user && (
+                <>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/availableCamps"}
+                  >
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        Available Camps
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={"/dashboard"}
+                  >
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">Dashbord</Typography>
+                    </MenuItem>
+                  </Link>
+                </>
+              )}
+
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={"/contactUs"}
+              >
+                <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Contact Us</Typography>
-                </Link>
-              </MenuItem>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
           <Typography
@@ -158,28 +163,34 @@ const NavBar = () => {
                 Home
               </Button>
             </Link>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to={"/availableCamps"}
-            >
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Available Camps
-              </Button>
-            </Link>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to={"/dashboard"}
-            >
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Dashbord
-              </Button>
-            </Link>
+
+            {user && (
+              <>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={"/availableCamps"}
+                >
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Available Camps
+                  </Button>
+                </Link>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={"/dashboard"}
+                >
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Dashbord
+                  </Button>
+                </Link>
+              </>
+            )}
+
             <Link
               style={{ textDecoration: "none", color: "white" }}
               to={"/contactUs"}

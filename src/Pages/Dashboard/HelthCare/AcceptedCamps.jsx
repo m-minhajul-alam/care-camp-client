@@ -13,13 +13,11 @@ import {
   Button,
 } from "@mui/material";
 
-// Replace with your actual JSON data
 import campData from "../../../../public/campData.json";
 import { ViewAgenda, Visibility } from "@mui/icons-material";
 
 const AcceptedCamps = () => {
   const data = React.useMemo(() => {
-    // Filter camps where professional's interest has been accepted
     return campData.filter((camp) => camp.acceptanceStatus === "Accepted");
   }, [campData]);
 
@@ -51,9 +49,7 @@ const AcceptedCamps = () => {
     useTable({ columns, data });
 
   const handleViewDetails = (campId) => {
-    // Handle the action to view details for the specific camp
     console.log(`View Details for Camp ID: ${campId}`);
-    // Implement navigation to the detailed information page for the specific camp
   };
 
   return (
