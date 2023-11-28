@@ -19,18 +19,16 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useContext, useState } from "react";
-import { AuthContext } from "../Providers/AuthProvider";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { ArrowBack, Home } from "@mui/icons-material";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { logIn } = useContext(AuthContext);
+  const { logIn, googleSingIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const handleSocialLogin = () => {};
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -57,6 +55,16 @@ const Login = () => {
       .catch((error) => {
         toast.error(error.message);
       });
+  };
+
+  const hendelGoogleLogin = () => {
+    googleSingIn()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Sing Up Success");
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -148,10 +156,7 @@ const Login = () => {
         <Grid container spacing={4} sx={{ mx: "auto" }}>
           <Grid item xs={4}>
             <Tooltip title="Log in with Google">
-              <IconButton
-                onClick={() => handleSocialLogin}
-                sx={{ fontSize: 30 }}
-              >
+              <IconButton onClick={hendelGoogleLogin} sx={{ fontSize: 30 }}>
                 <GoogleIcon />
               </IconButton>
             </Tooltip>
