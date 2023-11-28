@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Container,
   Typography,
@@ -26,15 +26,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
-import { AuthContext } from "../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-// import axios from "axios";
+import useAuth from "../../Hooks/useAuth";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, googleSingIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPublic = useAxiosPublic();
@@ -46,8 +45,6 @@ const SignUp = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const handleSocialLogin = () => {};
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -97,6 +94,16 @@ const SignUp = () => {
         event.target.reset();
         toast.error(error.message);
       });
+  };
+
+  const hendelGoogleReg = () => {
+    googleSingIn()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Sing Up Success");
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -222,10 +229,7 @@ const SignUp = () => {
         <Grid container spacing={4} sx={{ mx: "auto" }}>
           <Grid item xs={4}>
             <Tooltip title="Sing Up with Google">
-              <IconButton
-                onClick={() => handleSocialLogin}
-                sx={{ fontSize: 30 }}
-              >
+              <IconButton onClick={hendelGoogleReg} sx={{ fontSize: 30 }}>
                 <GoogleIcon />
               </IconButton>
             </Tooltip>
