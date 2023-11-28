@@ -2,12 +2,14 @@ import { Typography } from "@mui/material";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import useAuth from "../../../Hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddCamp = () => {
   const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
 
   const initialValues = {
     campName: "",
@@ -47,25 +49,7 @@ const AddCamp = () => {
     return errors;
   };
 
-  const handleImageChange = async (event) => {
-    const imageFile = event.currentTarget.files[0];
-
-    if (imageFile) {
-      const formData = new FormData();
-      formData.append("image", imageFile);
-
-      try {
-        const response = await axiosPublic.post(image_hosting_api, formData);
-        const imageUrl = response.data.data.url;
-        console.log(imageUrl);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        toast.error("Error uploading image. Please try again.");
-      }
-    }
-  };
-
-  const onSubmit = async (values, { setSubmitting }) => {
+  const onSubmit = async (values, { setSubmitting, resetForm }) => {
     const imageFile = document.getElementById("image").files[0];
 
     if (imageFile) {
@@ -83,10 +67,12 @@ const AddCamp = () => {
         return;
       }
     }
+    values.userEmail = user.email;
 
     try {
       const response = await axiosPublic.post("/camps", values);
       console.log(response);
+      resetForm();
       toast.success("Form submitted successfully!");
     } catch (error) {
       console.error(error);
@@ -130,7 +116,6 @@ const AddCamp = () => {
               id="image"
               name="image"
               style={{ width: "100%", height: "30px" }}
-              onChange={handleImageChange}
             />
             <ErrorMessage
               name="image"
