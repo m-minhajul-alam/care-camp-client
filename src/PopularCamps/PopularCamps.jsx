@@ -37,7 +37,6 @@ const PopularCamps = () => {
       return res.data;
     },
   });
-  console.log(camps);
 
   if (isPending) {
     return (

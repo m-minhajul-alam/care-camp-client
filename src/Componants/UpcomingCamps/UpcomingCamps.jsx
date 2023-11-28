@@ -1,22 +1,60 @@
-import { useState, useEffect } from "react";
-import { Container, Typography, Card, CardContent, Grid } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  LinearProgress,
+} from "@mui/material";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
+import { Box } from "@mui/system";
 
 const UpcomingCamps = () => {
-  const [upcomingCamps, setUpcomingCamps] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/upcomingCampsData.json");
-        const data = await response.json();
-        setUpcomingCamps(data);
-      } catch (error) {
-        console.error("Error fetching upcoming camps data:", error);
-      }
-    };
+  const {
+    isPending,
+    isError,
+    error,
+    data: upcomingCamps,
+  } = useQuery({
+    queryKey: ["upcomingCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/upcomingCamps");
+      return res.data;
+    },
+  });
 
-    fetchData();
-  }, []);
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <LinearProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   return (
     <Container sx={{ my: "68px", textAlign: "center" }}>
@@ -25,7 +63,7 @@ const UpcomingCamps = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {upcomingCamps?.map((camp, index) => (
+        {upcomingCamps?.slice(0, 6).map((camp, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card>
               <img
