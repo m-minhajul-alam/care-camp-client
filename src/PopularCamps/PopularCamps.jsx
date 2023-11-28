@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -12,28 +12,62 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  LinearProgress,
 } from "@mui/material";
+import { useQuery } from "react-query";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const PopularCamps = () => {
-  const [camps, setCamps] = useState([]);
+  const axiosPublic = useAxiosPublic();
   const [participantCounts, setParticipantCounts] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCampForRegistration, setSelectedCampForRegistration] =
     useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/campData.json");
-        const data = await response.json();
-        setCamps(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const {
+    isPending,
+    isError,
+    error,
+    data: camps,
+  } = useQuery({
+    queryKey: ["camps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/camps");
+      return res.data;
+    },
+  });
+  console.log(camps);
 
-    fetchData();
-  }, []);
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <LinearProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   const handleRegister = (campName) => {
     setSelectedCampForRegistration(campName);
@@ -59,7 +93,7 @@ const PopularCamps = () => {
       </Typography>
 
       <Grid container spacing={2}>
-        {camps.slice(0, 6).map((camp) => (
+        {camps?.slice(0, 6).map((camp) => (
           <Grid item key={camp.campName} xs={12} sm={6} md={4} lg={4} xl={4}>
             <Card
               sx={{ height: "100%", display: "flex", flexDirection: "column" }}
