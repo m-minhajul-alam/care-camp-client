@@ -2,12 +2,8 @@ import { Container, Typography, Grid, Card, CardContent } from "@mui/material";
 
 const ContactUs = () => {
   return (
-    <Container sx={{ my: "68px" }}>
-      <Typography
-        variant="h4"
-        sx={{ textAlign: "center", mb: "26px", color: "primary" }}
-        gutterBottom
-      >
+    <Container sx={{ my: "28px" }}>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Contact Us
       </Typography>
 

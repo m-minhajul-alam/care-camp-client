@@ -5,19 +5,29 @@ import { CircularProgress } from "@mui/material";
 import useAuth from "../Hooks/useAuth";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user, loding } = useAuth();
   const location = useLocation();
 
-  if (loading) {
-    <Box sx={{ display: "flex" }}>
-      <CircularProgress />
-    </Box>;
+  if (loding) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (user) {
     return children;
   }
-  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+
+  return <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 export default PrivateRoute;

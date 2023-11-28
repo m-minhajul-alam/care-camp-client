@@ -58,19 +58,16 @@ const SignUp = () => {
     const password = form.password.value;
     const role = form.role.value;
     const userInfo = { name, email, password, role };
-    console.log(userInfo);
 
-    // if (!/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(password)) {
-    //   toast.error(
-    //     "password should be minimum 6 characters, at least 1 capitel letter, 1 number and 1 special characte."
-    //   );
-    //   return;
-    // }
+    if (!/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(password)) {
+      toast.error(
+        "password should be minimum 6 characters, at least 1 capitel letter, 1 number and 1 special characte."
+      );
+      return;
+    }
 
     createUser(email, password)
       .then((result) => {
-        // event.target.reset();
-        // toast.success("Sing Up Success");
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,
@@ -94,10 +91,10 @@ const SignUp = () => {
           })
           .catch((error) => {
             console.error("Error in Axios Request:", error);
-            // Handle the error, show an appropriate message, etc.
           });
       })
       .catch((error) => {
+        event.target.reset();
         toast.error(error.message);
       });
   };

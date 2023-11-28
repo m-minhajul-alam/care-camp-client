@@ -32,16 +32,7 @@ const AvailableCamps = () => {
 
   return (
     <Container sx={{ my: "28px" }}>
-      <Typography
-        variant="h4"
-        sx={{
-          textAlign: "center",
-          font: "700px",
-          mb: "26px",
-          color: "primary",
-        }}
-        gutterBottom
-      >
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Available Camps
       </Typography>
       <Grid container spacing={3}>
@@ -83,11 +74,11 @@ const AvailableCamps = () => {
                 </Typography>
                 <Typography variant="body2" color="textSecondary" gutterBottom>
                   <strong>Specialized Services:</strong>{" "}
-                  {camp.specializedServices.join(", ")}
+                  {camp.specializedService}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" gutterBottom>
                   <strong>Healthcare Professionals:</strong>{" "}
-                  {camp.healthcareProfessionals.join(", ")}
+                  {camp.healthcareProfessional}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" gutterBottom>
                   <strong>Description:</strong> {camp.description}

@@ -1,7 +1,14 @@
 import { Typography } from "@mui/material";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+
+const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddCamp = () => {
+  const axiosPublic = useAxiosPublic();
+
   const initialValues = {
     campName: "",
     image: "",
@@ -13,43 +20,80 @@ const AddCamp = () => {
     targetAudience: "",
     description: "",
   };
+
   const validate = (values) => {
     const errors = {};
 
-    if (!values.campName) {
-      errors.campName = "Camp Name is required";
-    }
-    if (!values.image) {
-      errors.image = "Camp image is required";
-    }
-    if (!values.campFees) {
-      errors.campFees = "Camp Fees is required";
-    }
-    if (!values.scheduledDateTime) {
-      errors.scheduledDateTime = "Scheduled Date Time is required";
-    }
-    if (!values.venueLocation) {
-      errors.venueLocation = "Venue Location is required";
-    }
-    if (!values.specializedService) {
-      errors.specializedService = "Specialized Service is required";
-    }
-    if (!values.healthcareProfessional) {
-      errors.healthcareProfessional = "Healthcare Professional is required";
-    }
-    if (!values.targetAudience) {
-      errors.targetAudience = "Target Audience is required";
-    }
-    if (!values.description) {
-      errors.description = "Description is required";
-    }
+    const requiredFields = [
+      "campName",
+      // "image",
+      "campFees",
+      "scheduledDateTime",
+      "venueLocation",
+      "specializedService",
+      "healthcareProfessional",
+      "targetAudience",
+      "description",
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!values[field]) {
+        errors[field] = `${
+          field.charAt(0).toUpperCase() + field.slice(1)
+        } is required`;
+      }
+    });
 
     return errors;
   };
 
-  const onSubmit = (values, { resetForm }) => {
-    console.log("Form data submitted:", values);
-    resetForm();
+  const handleImageChange = async (event) => {
+    const imageFile = event.currentTarget.files[0];
+
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      try {
+        const response = await axiosPublic.post(image_hosting_api, formData);
+        const imageUrl = response.data.data.url;
+        console.log(imageUrl);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast.error("Error uploading image. Please try again.");
+      }
+    }
+  };
+
+  const onSubmit = async (values, { setSubmitting }) => {
+    const imageFile = document.getElementById("image").files[0];
+
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      try {
+        const response = await axiosPublic.post(image_hosting_api, formData);
+        const imageUrl = response.data.data.url;
+        values.image = imageUrl;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast.error("Error uploading image. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+    }
+
+    try {
+      const response = await axiosPublic.post("/camps", values);
+      console.log(response);
+      toast.success("Form submitted successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error submitting form. Please try again.");
+    }
+
+    setSubmitting(false);
   };
 
   return (
@@ -81,11 +125,12 @@ const AddCamp = () => {
 
           <div style={{ marginBottom: "10px" }}>
             <label htmlFor="image">Image</label>
-            <Field
+            <input
               type="file"
               id="image"
               name="image"
               style={{ width: "100%", height: "30px" }}
+              onChange={handleImageChange}
             />
             <ErrorMessage
               name="image"
@@ -208,7 +253,7 @@ const AddCamp = () => {
             style={{
               width: "100%",
               padding: "10px",
-              background: "#4CAF50",
+              background: "#0389ff",
               color: "white",
               border: "none",
               borderRadius: "5px",
