@@ -54,18 +54,10 @@ const PopularCamps = () => {
 
   return (
     <Container sx={{ my: "68px" }}>
-      <Typography
-        variant="h4"
-        sx={{
-          textAlign: "center",
-          font: "700px",
-          mb: "26px",
-          color: "#00A19D",
-        }}
-        gutterBottom
-      >
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Popular Medical Camps
       </Typography>
+
       <Grid container spacing={2}>
         {camps.slice(0, 6).map((camp) => (
           <Grid item key={camp.campName} xs={12} sm={6} md={4} lg={4} xl={4}>
@@ -82,7 +74,7 @@ const PopularCamps = () => {
                   {camp.campName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Camp Fees:</strong> {camp.campFees}
+                  <strong>Camp Fees:</strong> ${camp.campFees}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   <strong>Scheduled Date and Time:</strong>{" "}
@@ -99,12 +91,12 @@ const PopularCamps = () => {
                   {participantCounts[camp.campName] || 0}
                 </Typography>
               </CardContent>
-              <CardActions style={{ marginTop: "auto" }}>
+              <CardActions sx={{ marginTop: "auto" }}>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handleRegister(camp.campName)}
-                  style={{ marginRight: "auto" }}
+                  style={{ width: "100%", marginRight: "1px" }}
                 >
                   Register
                 </Button>
@@ -112,6 +104,7 @@ const PopularCamps = () => {
                   variant="outlined"
                   color="primary"
                   component={Link}
+                  style={{ width: "100%", marginLeft: "1px" }}
                   to={`/campDetail/${camp.id}`}
                 >
                   Details

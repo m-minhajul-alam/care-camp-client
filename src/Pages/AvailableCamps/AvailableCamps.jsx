@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -7,24 +6,57 @@ import {
   CardContent,
   Button,
   Grid,
+  CircularProgress,
 } from "@mui/material";
+import { useQuery } from "react-query";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AvailableCamps = () => {
-  const [camps, setCamps] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    const fetchCamps = async () => {
-      try {
-        const response = await fetch("/campData.json");
-        const data = await response.json();
-        setCamps(data);
-      } catch (error) {
-        console.error("Error fetching camp data:", error);
-      }
-    };
+  const {
+    isPending,
+    isError,
+    error,
+    data: camps,
+  } = useQuery({
+    queryKey: ["camps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/camps");
+      return res.data;
+    },
+  });
 
-    fetchCamps();
-  }, []);
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   const joinCamp = (campId) => {
     console.log(`Joining camp with ID: ${campId}`);

@@ -22,18 +22,10 @@ const Testimonials = () => {
 
   return (
     <Container sx={{ my: "68px" }}>
-      <Typography
-        variant="h4"
-        sx={{
-          textAlign: "center",
-          font: "700px",
-          mb: "26px",
-          color: "primary",
-        }}
-        gutterBottom
-      >
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Testimonials
       </Typography>
+
       <Carousel
         showArrows={false}
         showStatus={false}

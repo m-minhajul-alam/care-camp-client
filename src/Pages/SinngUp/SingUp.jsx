@@ -57,7 +57,7 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const role = form.role.value;
-    const userInfo = { name, email, password, role };
+    const userInfo = { name, email, role };
 
     if (!/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/.test(password)) {
       toast.error(

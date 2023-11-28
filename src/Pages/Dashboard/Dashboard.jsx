@@ -13,7 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Add,
   AddAlarm,
@@ -28,12 +28,12 @@ import {
   Person,
 } from "@mui/icons-material";
 import { Link, Outlet } from "react-router-dom";
-import { AuthContext } from "../Providers/AuthProvider";
+import useAuth from "../../Hooks/useAuth";
 
 const drawerWidth = 240;
 
 const Dashboard = (props) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 

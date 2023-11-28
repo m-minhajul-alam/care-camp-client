@@ -20,17 +20,10 @@ const UpcomingCamps = () => {
 
   return (
     <Container sx={{ my: "68px", textAlign: "center" }}>
-      <Typography
-        variant="h4"
-        sx={{
-          font: "700px",
-          mb: "26px",
-          color: "primary",
-        }}
-        gutterBottom
-      >
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Upcoming Camps
       </Typography>
+
       <Grid container spacing={3}>
         {upcomingCamps?.map((camp, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>

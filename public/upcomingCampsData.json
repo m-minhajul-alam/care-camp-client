@@ -1,51 +1,69 @@
 [
     {
       "campName": "Fitness Bootcamp",
-      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "image": "https://i.ibb.co/Z6KRtY0/Fitness-Bootcamp.jpg",
+      "campFees": 15,
       "scheduledDateTime": "2023-12-20T08:00:00",
       "venueLocation": "City Park",
-      "description": "Join our Fitness Bootcamp for a day of intense workouts, fitness challenges, and expert guidance. Open to all fitness levels, this camp aims to promote a healthy and active lifestyle.",
-      "registrationLink": "https://example.com/fitness-bootcamp-registration"
+      "specializedService": "Injury Prevention Strategies",
+      "healthcareProfessional": "Sports Medicine Dr. Anderson",
+      "targetAudience": "Athletes and sports enthusiasts",
+      "description": "Join our Fitness Bootcamp for a day of intense workouts, fitness challenges, and expert guidance. Open to all fitness levels, this camp aims to promote a healthy and active lifestyle."
     },
     {
       "campName": "Yoga Retreat",
-      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "image": "https://i.ibb.co/jWfT7Q6/Yoga-Retreat.jpg",
+      "campFees": 10,
       "scheduledDateTime": "2023-12-28T10:00:00",
       "venueLocation": "Serene Retreat Center",
-      "description": "Embark on a journey of self-discovery and relaxation at our Yoga Retreat. Experience rejuvenating yoga sessions, meditation, and holistic wellness practices.",
-      "registrationLink": "https://example.com/yoga-retreat-registration"
+      "specializedService": "Cancer Risk Assessments",
+      "healthcareProfessional": "Oncologist Dr. Smith",
+      "targetAudience": "Adults interested in cancer prevention",
+      "description": "Embark on a journey of self-discovery and relaxation at our Yoga Retreat. Experience rejuvenating yoga sessions, meditation, and holistic wellness practices."
     },
     {
       "campName": "Nutrition Workshop",
-      "image": "https://i.ibb.co/FXTtZ4R/Pediatric-Vaccination-Drive.jpg",
+      "image": "https://i.ibb.co/gPnmqCw/Nutrition-Workshop.jpg",
+      "campFees": 15,
       "scheduledDateTime": "2024-01-05T14:30:00",
       "venueLocation": "Wellness Hub",
-      "description": "Learn about the principles of nutrition and healthy eating at our Nutrition Workshop. Discover practical tips for maintaining a balanced diet and supporting overall well-being.",
-      "registrationLink": "https://example.com/nutrition-workshop-registration"
+      "specializedService": "Blood Sugar Monitoring",
+      "healthcareProfessional": "Endocrinologist Dr. Brown",
+      "targetAudience": "Individuals living with diabetes",
+      "description": "Learn about the principles of nutrition and healthy eating at our Nutrition Workshop. Discover practical tips for maintaining a balanced diet and supporting overall well-being."
     },
     {
       "campName": "Mindfulness Meditation",
-      "image": "https://example.com/mindfulness-meditation.jpg",
+      "image": "https://i.ibb.co/tPQ79Gn/Mindfulness-Meditation.jpg",
+      "campFees": 15,
       "scheduledDateTime": "2024-01-15T18:00:00",
       "venueLocation": "Peaceful Sanctuary",
-      "description": "Join our Mindfulness Meditation camp to cultivate inner peace and tranquility. Learn mindfulness techniques and practices for stress reduction and mental well-being.",
-      "registrationLink": "https://example.com/mindfulness-meditation-registration"
+      "specializedService": "Health Screenings",
+      "healthcareProfessional": "Dr. Smith (Cardiologist)",
+      "targetAudience": "Open to all age groups",
+      "description": "Join our Mindfulness Meditation camp to cultivate inner peace and tranquility. Learn mindfulness techniques and practices for stress reduction and mental well-being."
     },
     {
       "campName": "Cycling Adventure",
-      "image": "https://example.com/cycling-adventure.jpg",
+      "image": "https://i.ibb.co/vH6dqyY/Cycling-Adventure.jpg",
+      "campFees": 20,
       "scheduledDateTime": "2024-02-02T09:00:00",
       "venueLocation": "Mountain Trails",
-      "description": "Experience the thrill of a Cycling Adventure through scenic mountain trails. Suitable for cyclists of all levels, this camp offers a blend of fitness and outdoor exploration.",
-      "registrationLink": "https://example.com/cycling-adventure-registration"
+      "specializedService": "Mental Health Seminars",
+      "healthcareProfessional": "Psychiatrist Dr. Taylor",
+      "targetAudience": "Open to all individuals",
+      "description": "Experience the thrill of a Cycling Adventure through scenic mountain trails. Suitable for cyclists of all levels, this camp offers a blend of fitness and outdoor exploration."
     },
     {
       "campName": "Holistic Health Retreat",
-      "image": "https://example.com/holistic-health-retreat.jpg",
+      "image": "https://i.ibb.co/PTGYgYT/Holistic-Health-Retreat.jpg",
+      "campFees": 25,
       "scheduledDateTime": "2024-02-20T12:00:00",
       "venueLocation": "Nature Haven Resort",
-      "description": "Immerse yourself in a Holistic Health Retreat, featuring yoga, meditation, nutrition workshops, and holistic therapies. Reconnect with nature and rejuvenate your mind, body, and spirit.",
-      "registrationLink": "https://example.com/holistic-health-retreat-registration"
+      "specializedService": "Cardiac Screenings",
+      "healthcareProfessional": "Dr. Rodriguez (Cardiologist)",
+      "targetAudience": "Individuals concerned about heart health",
+      "description": "Immerse yourself in a Holistic Health Retreat, featuring yoga, meditation, nutrition workshops, and holistic therapies. Reconnect with nature and rejuvenate your mind, body, and spirit."
     }
   ]
   
