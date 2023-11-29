@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -14,10 +14,40 @@ import {
 import { useTable } from "react-table";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import campData from "../../../../public/campData.json";
+// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+// import { useQuery } from "react-query";
 
 const ManageCamps = () => {
-  const data = React.useMemo(() => campData, [campData]);
+  const [data, setData] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedCamp, setSelectedCamp] = useState(null);
+  // const axiosPublic = useAxiosPublic();
+
+  // const { data } = useQuery({
+  //   queryKey: ["data"],
+  //   queryFn: async () => {
+  //     const res = await axiosPublic.get("/camps");
+  //     return res.data;
+  //   },
+  // });
+  // console.log(data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/camps");
+        if (!response.ok) {
+          throw new Error("Failed to fetch camp data");
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching camp data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const columns = React.useMemo(
     () => [
@@ -61,9 +91,6 @@ const ManageCamps = () => {
   const handleDelete = (camp) => {
     console.log("Delete camp:", camp);
   };
-
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [selectedCamp, setSelectedCamp] = React.useState(null);
 
   const handleDialogClose = () => {
     setOpenDialog(false);
