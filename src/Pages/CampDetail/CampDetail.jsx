@@ -13,12 +13,14 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  CircularProgress,
 } from "@mui/material";
-import campData from "../../../public/campData.json";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
 
 const CampDetail = () => {
   const { id } = useParams();
-  const [campDetails, setCampDetails] = React.useState(null);
+  // const [campDetails, setCampDetails] = React.useState(null);
   const [openRegistrationModal, setOpenRegistrationModal] =
     React.useState(false);
   const [participantInfo, setParticipantInfo] = React.useState({
@@ -29,15 +31,50 @@ const CampDetail = () => {
     address: "",
   });
 
-  React.useEffect(() => {
-    const selectedCamp = campData.find((camp) => camp.id === id);
+  const axiosPublic = useAxiosPublic();
 
-    if (selectedCamp) {
-      setCampDetails(selectedCamp);
-    } else {
-      console.error(`Camp with ID ${id} not found`);
-    }
-  }, [id]);
+  const {
+    isPending,
+    isError,
+    error,
+    data: campDetails,
+  } = useQuery({
+    queryKey: ["campDetails"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/camps/${id}`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   const handleJoinCamp = () => {
     setOpenRegistrationModal(true);
@@ -59,7 +96,10 @@ const CampDetail = () => {
   };
 
   return (
-    <Container sx={{ my: "68px" }}>
+    <Container sx={{ my: "28px" }}>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Camp Details
+      </Typography>
       {campDetails && (
         <>
           <Card>
@@ -91,18 +131,17 @@ const CampDetail = () => {
                 {campDetails.description}
               </Typography>
             </CardContent>
+
+            <Box sx={{ textAlign: "end", m: 2 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleJoinCamp}
+              >
+                Join Camp
+              </Button>
+            </Box>
           </Card>
-
-          <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleJoinCamp}
-            >
-              Join Camp
-            </Button>
-          </Box>
-
           <Dialog
             open={openRegistrationModal}
             onClose={handleCloseRegistrationModal}

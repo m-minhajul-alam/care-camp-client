@@ -80,7 +80,6 @@ const SignUp = () => {
             console.log("Server Response:", res);
 
             if (res.data.insertedId) {
-              console.log("user added to the database");
               event.target.reset();
               toast.success("Sign Up Success");
               navigate(location?.state ? location.state : "/");
@@ -96,14 +95,19 @@ const SignUp = () => {
       });
   };
 
-  const hendelGoogleReg = () => {
-    googleSingIn()
-      .then((result) => {
-        console.log(result.user);
+  const handleGoogleSignIn = () => {
+    googleSingIn().then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        role: "Participant",
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
         toast.success("Sing Up Success");
         navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => toast.error(error.message));
+      });
+    });
   };
 
   return (
@@ -229,7 +233,7 @@ const SignUp = () => {
         <Grid container spacing={4} sx={{ mx: "auto" }}>
           <Grid item xs={4}>
             <Tooltip title="Sing Up with Google">
-              <IconButton onClick={hendelGoogleReg} sx={{ fontSize: 30 }}>
+              <IconButton onClick={handleGoogleSignIn} sx={{ fontSize: 30 }}>
                 <GoogleIcon />
               </IconButton>
             </Tooltip>

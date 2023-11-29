@@ -23,8 +23,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { ArrowBack, Home } from "@mui/icons-material";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
+  const axiosPublic = useAxiosPublic();
   const [showPassword, setShowPassword] = useState(false);
   const { logIn, googleSingIn } = useAuth();
   const navigate = useNavigate();
@@ -58,13 +60,18 @@ const Login = () => {
   };
 
   const hendelGoogleLogin = () => {
-    googleSingIn()
-      .then((result) => {
-        console.log(result.user);
+    googleSingIn().then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        role: "Participant",
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
         toast.success("Sing Up Success");
         navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => toast.error(error.message));
+      });
+    });
   };
 
   return (

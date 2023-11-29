@@ -138,7 +138,7 @@ const PopularCamps = () => {
                   color="primary"
                   component={Link}
                   style={{ width: "100%", marginLeft: "1px" }}
-                  to={`/campDetail/${camp.id}`}
+                  to={`/campDetails/${camp._id}`}
                 >
                   Details
                 </Button>

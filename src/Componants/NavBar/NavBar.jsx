@@ -18,6 +18,7 @@ const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, logOut } = useContext(AuthContext);
+
   const handelLogOut = () => {
     logOut().then().catch();
   };

@@ -51,6 +51,7 @@ const AvailableCamps = () => {
           alignItems: "center",
           justifyContent: "center",
           height: "100vh",
+          color: "red",
         }}
       >
         {error.message}
@@ -58,9 +59,9 @@ const AvailableCamps = () => {
     );
   }
 
-  const joinCamp = (campId) => {
-    console.log(`Joining camp with ID: ${campId}`);
-  };
+  // const joinCamp = (campId) => {
+  //   console.log(`Joining camp with ID: ${campId}`);
+  // };
 
   return (
     <Container sx={{ my: "28px" }}>
@@ -119,9 +120,9 @@ const AvailableCamps = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => joinCamp(camp.id)}
+                // onClick={() => joinCamp(camp._id)}
                 component={Link}
-                to={`/campDetail/${camp.id}`}
+                to={`/campDetails/${camp._id}`}
                 sx={{ mt: "auto" }}
               >
                 Join Camp
