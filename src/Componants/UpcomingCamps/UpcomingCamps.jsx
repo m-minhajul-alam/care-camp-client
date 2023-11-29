@@ -63,29 +63,39 @@ const UpcomingCamps = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {upcomingCamps?.slice(0, 6).map((camp, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
-              <img
-                src={camp.image}
-                alt={camp.campName}
-                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-              />
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {camp.campName}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  <strong> Date:</strong> {camp.scheduledDateTime}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong> Venue:</strong> {camp.venueLocation}
-                </Typography>
-                {/* Add more details as needed */}
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        {upcomingCamps
+          ?.sort(
+            (a, b) =>
+              new Date(b.scheduledDateTime) - new Date(a.scheduledDateTime)
+          )
+          .slice(0, 6)
+          .map((camp, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card>
+                <img
+                  src={camp.image}
+                  alt={camp.campName}
+                  style={{ width: "100%", height: "200px", objectFit: "cover" }}
+                />
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {camp.campName}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    <strong> Date:</strong> {camp.scheduledDateTime}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    <strong> Venue:</strong> {camp.venueLocation}
+                  </Typography>
+                  {/* Add more details as needed */}
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
       </Grid>
     </Container>
   );
