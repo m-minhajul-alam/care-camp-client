@@ -7,6 +7,7 @@ import {
   Button,
   Grid,
   CircularProgress,
+  CardActions,
 } from "@mui/material";
 import { useQuery } from "react-query";
 import { Box } from "@mui/system";
@@ -117,16 +118,25 @@ const AvailableCamps = () => {
                   <strong>Description:</strong> {camp.description}
                 </Typography>
               </CardContent>
-              <Button
-                variant="contained"
-                color="primary"
-                // onClick={() => joinCamp(camp._id)}
-                component={Link}
-                to={`/campDetails/${camp._id}`}
-                sx={{ mt: "auto" }}
-              >
-                Join Camp
-              </Button>
+              <CardActions sx={{ marginTop: "auto" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  // onClick={() => handleRegister(camp.campName)}
+                  style={{ width: "100%", marginRight: "1px" }}
+                >
+                  Register
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  component={Link}
+                  style={{ width: "100%", marginLeft: "1px" }}
+                  to={`/campDetails/${camp._id}`}
+                >
+                  Details
+                </Button>
+              </CardActions>
             </Card>
           </Grid>
         ))}

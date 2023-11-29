@@ -34,10 +34,6 @@ const Profile = () => {
 
   return (
     <Container>
-      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        {user?.displayName} Profile
-      </Typography>
-
       <Container sx={{ maxWidth: "10px" }}>
         <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
           <Box>
@@ -82,7 +78,7 @@ const Profile = () => {
               color="primary"
               onClick={handleOpenModal}
             >
-              <EditIcon /> Update Profile
+              <EditIcon sx={{ mr: 1 }} /> Update Profile
             </Button>
           </Box>
         </Card>

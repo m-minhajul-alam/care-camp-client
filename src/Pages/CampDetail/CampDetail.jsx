@@ -1,5 +1,3 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -16,22 +14,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import { ArrowBack } from "@mui/icons-material";
+import { useState } from "react";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const CampDetail = () => {
   const { id } = useParams();
-  // const [campDetails, setCampDetails] = React.useState(null);
-  const [openRegistrationModal, setOpenRegistrationModal] =
-    React.useState(false);
-  const [participantInfo, setParticipantInfo] = React.useState({
-    name: "",
-    age: "",
-    phone: "",
-    gender: "",
-    address: "",
-  });
-
   const axiosPublic = useAxiosPublic();
+  const [openModal, setOpenModal] = useState(false);
+  const { user } = useAuth();
 
   const {
     isPending,
@@ -76,30 +70,45 @@ const CampDetail = () => {
     );
   }
 
-  const handleJoinCamp = () => {
-    setOpenRegistrationModal(true);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const age = form.age.value;
+    const phone = form.phone.value;
+    const gender = form.gender.value;
+    const address = form.address.value;
+    const healthInfo = form.healthInfo.value;
+    const emergencyContact = form.emergencyContact.value;
+    const registerInfo = {
+      name,
+      email,
+      age,
+      phone,
+      gender,
+      address,
+      healthInfo,
+      emergencyContact,
+      CampName: campDetails.campName,
+      CampId: campDetails._id,
+      CampFees: campDetails.campFees,
+    };
 
-  const handleCloseRegistrationModal = () => {
-    setOpenRegistrationModal(false);
-  };
+    try {
+      const response = await axiosPublic.post("/regCamps", registerInfo);
+      console.log(response);
+      toast.success("Form submitted successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error submitting form. Please try again.");
+    }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setParticipantInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
-  };
-
-  const handleRegisterParticipant = () => {
-    console.log("Registering participant:", participantInfo);
-
-    handleCloseRegistrationModal();
+    setOpenModal(false);
   };
 
   return (
     <Container sx={{ my: "28px" }}>
-      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Camp Details
-      </Typography>
       {campDetails && (
         <>
           <Card>
@@ -134,88 +143,118 @@ const CampDetail = () => {
 
             <Box sx={{ textAlign: "end", m: 2 }}>
               <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => window.history.back()}
+                sx={{ mr: 2 }}
+              >
+                <ArrowBack />
+              </Button>
+              <Button
                 variant="contained"
                 color="primary"
-                onClick={handleJoinCamp}
+                onClick={() => setOpenModal(true)}
               >
                 Join Camp
               </Button>
             </Box>
           </Card>
-          <Dialog
-            open={openRegistrationModal}
-            onClose={handleCloseRegistrationModal}
-          >
+
+          <Dialog open={openModal} onClose={() => setOpenModal(false)}>
             <DialogTitle>Participant Registration</DialogTitle>
-            <DialogContent>
-              <TextField
-                label="Name"
-                name="name"
-                value={participantInfo.name}
-                onChange={handleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Age"
-                name="age"
-                value={participantInfo.age}
-                onChange={handleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Phone"
-                name="phone"
-                value={participantInfo.phone}
-                onChange={handleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Gender"
-                name="gender"
-                value={participantInfo.gender}
-                onChange={handleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Address"
-                name="address"
-                value={participantInfo.address}
-                onChange={handleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Camp Fees"
-                value={campDetails.campFees}
-                InputProps={{ readOnly: true }}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Health-related Information"
-                name="healthInfo"
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Emergency Contact"
-                name="emergencyContact"
-                fullWidth
-                margin="normal"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseRegistrationModal} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={handleRegisterParticipant} color="primary">
-                Register
-              </Button>
-            </DialogActions>
+            <form onSubmit={handleSubmit}>
+              <DialogContent>
+                <TextField
+                  label="Camp Name"
+                  name="campName"
+                  value={campDetails?.campName}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Name"
+                  name="name"
+                  defaultValue={user?.displayName}
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  defaultValue={user?.email}
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Age"
+                  name="age"
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  type="number"
+                  fullWidth
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  label="Gender"
+                  name="gender"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Address"
+                  name="address"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Camp Fees"
+                  value={campDetails.campFees}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Health-related Information"
+                  name="healthInfo"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Emergency Contact"
+                  name="emergencyContact"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => setOpenModal(false)}
+                  variant="outlined"
+                  color="primary"
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" variant="contained" color="primary">
+                  Register
+                </Button>
+              </DialogActions>
+            </form>
           </Dialog>
         </>
       )}
