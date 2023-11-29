@@ -150,7 +150,7 @@ const PopularCamps = () => {
       <div
         style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
       >
-        <Button component={Link} to="/available-camps" variant="outlined">
+        <Button component={Link} to="/availableCamps" variant="outlined">
           See All Camps
         </Button>
       </div>

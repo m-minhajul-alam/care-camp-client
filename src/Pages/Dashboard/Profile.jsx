@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Container,
   Typography,
@@ -6,17 +6,16 @@ import {
   Modal,
   Box,
   TextField,
-  Snackbar,
+  Card,
+  CardContent,
 } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
 import EditIcon from "@mui/icons-material/Edit";
-import { AuthContext } from "../Providers/AuthProvider";
+import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSnackbarOpen, setSnackbarOpen] = useState(false);
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user } = useAuth();
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -29,60 +28,66 @@ const Profile = () => {
   const handleSubmit = () => {};
 
   const handleUpdateProfile = () => {
-    // Perform validation checks here
-    // Update organizer's profile information in the backend
-    // ...
-
-    // Close the modal after successful update
     handleCloseModal();
-
-    // Show success alert
-    setSnackbarOpen(true);
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
+    toast.success("Profile Updated Successfully!");
   };
 
   return (
     <Container>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Profile
+        {user?.displayName} Profile
       </Typography>
 
-      <Box sx={{ textAlign: "center", mb: 3 }}>
-        <img
-          src={user?.photoURL}
-          alt="Image"
-          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-        />
-        <Typography variant="h6" color="primary" sx={{ mt: 2 }}></Typography>
-        <Typography
-          variant="body1"
-          sx={{ color: "text.secondary" }}
-        ></Typography>
-      </Box>
+      <Container sx={{ maxWidth: "10px" }}>
+        <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+          <Box>
+            <img
+              src={user?.photoURL}
+              style={{ width: "100%", height: "200px", objectFit: "cover" }}
+            />
+            <Box sx={{ textAlign: "center", mb: 3, mt: -6 }}>
+              <img
+                src={user?.photoURL}
+                alt="Image"
+                style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+              />
+              <Typography
+                variant="h6"
+                color="primary"
+                sx={{ mt: 2 }}
+              ></Typography>
+              <Typography
+                variant="body1"
+                sx={{ color: "text.secondary" }}
+              ></Typography>
+            </Box>
+          </Box>
+          <CardContent sx={{ flexGrow: 1, textAlign: "center" }}>
+            <Typography variant="h5" gutterBottom>
+              {user?.displayName}
+            </Typography>
 
-      {/* Display other organizer information */}
-      <Typography variant="body1" sx={{ mb: 1 }}>
-        <strong>Contact:</strong>
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 1 }}>
-        <strong>Email:</strong>
-      </Typography>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+              {user?.email}
+            </Typography>
 
-      <Box sx={{ textAlign: "center", mb: 3 }}>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<EditIcon />}
-          onClick={handleOpenModal}
-        >
-          Update Profile
-        </Button>
-      </Box>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+              {" "}
+            </Typography>
+          </CardContent>
 
-      {/* Modal for profile updates */}
+          <Box sx={{ textAlign: "center", mb: 3 }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleOpenModal}
+            >
+              <EditIcon /> Update Profile
+            </Button>
+          </Box>
+        </Card>
+      </Container>
+
       <Modal open={isModalOpen} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -102,52 +107,35 @@ const Profile = () => {
           <TextField
             label="Name"
             fullWidth
-            // value={formData.name}
+            value={user.displayName}
             onChange={(e) => handleSubmit("name", e.target.value)}
             margin="normal"
           />
           <TextField
-            label="Contact"
+            label="Email"
             fullWidth
-            // value={formData.contact}
-            onChange={(e) => handleSubmit("contact", e.target.value)}
+            value={user.email}
+            onChange={(e) => handleSubmit("email", e.target.value)}
             margin="normal"
           />
           <TextField
-            label="Preferences"
+            label="Mobil"
             fullWidth
-            // value={formData.preferences}
             onChange={(e) => handleSubmit("preferences", e.target.value)}
             margin="normal"
           />
-          {/* Add more fields as needed */}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleUpdateProfile}
-            sx={{ mt: 2 }}
-          >
-            Save Changes
-          </Button>
+          <Box sx={{ textAlign: "center" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleUpdateProfile}
+              sx={{ mt: 2 }}
+            >
+              Save Changes
+            </Button>
+          </Box>
         </Box>
       </Modal>
-
-      {/* Snackbar for success alert */}
-      <Snackbar
-        open={isSnackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <MuiAlert
-          onClose={handleCloseSnackbar}
-          severity="success"
-          elevation={6}
-          variant="filled"
-        >
-          Profile Updated Successfully!
-        </MuiAlert>
-      </Snackbar>
     </Container>
   );
 };
