@@ -1,181 +1,155 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from "react";
 import {
   Container,
   Typography,
   Paper,
   IconButton,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
 } from "@mui/material";
-import { useTable } from "react-table";
-import campData from "../../../../public/campData.json";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
+import Swal from "sweetalert2";
 
 const ManageRegisteredCamps = () => {
-  const data = React.useMemo(() => campData, [campData]);
+  const axiosPublic = useAxiosPublic();
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Camp Name",
-        accessor: "campName",
-      },
-      {
-        Header: "Date and Time",
-        accessor: "scheduledDateTime",
-      },
-      {
-        Header: "Venue",
-        accessor: "venueLocation",
-      },
-      {
-        Header: "Camp Fees",
-        accessor: "campFees",
-      },
-      {
-        Header: "Payment Status",
-        accessor: "paymentStatus",
-      },
-      {
-        Header: "Confirmation Status",
-        accessor: "confirmationStatus",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <>
-            <IconButton onClick={() => handleEdit(row.original)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => openDeleteDialog(row.original)}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        ),
-      },
-    ],
-    []
-  );
+  const {
+    isPending,
+    isError,
+    error,
+    refetch,
+    data: regCamps,
+  } = useQuery({
+    queryKey: ["regCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/regCamps`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
-  const handleEdit = (camp) => {
-    console.log("Edit camp:", camp);
-  };
-
-  const handleDelete = (camp) => {
-    console.log("Delete camp:", camp);
-  };
-
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedCamp, setSelectedCamp] = useState(null);
-
-  const handleDialogClose = () => {
-    setOpenDialog(false);
-    setSelectedCamp(null);
-  };
-
-  const handleDeleteConfirm = () => {
-    if (selectedCamp) {
-      handleDelete(selectedCamp);
-      handleDialogClose();
-    }
-  };
-
-  const openDeleteDialog = (camp) => {
-    setSelectedCamp(camp);
-    setOpenDialog(true);
+  const handleDeleteRegCamp = (regCamp) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/regCamps/${regCamp._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Reg.Capm has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
-    <>
-      <Container>
-        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-          Manage Registered Camps
-        </Typography>
+    <Container>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Manage Registered Camps
+      </Typography>
 
-        <Paper
-          elevation={3}
-          sx={{
-            overflow: "auto",
-            margin: "auto",
-            width: "80%",
-            maxWidth: "100%",
-          }}
-        >
-          <table
-            {...getTableProps()}
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              border: "1px solid #ddd",
-            }}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  key={headerGroup.id}
-                  {...headerGroup.getHeaderGroupProps()}
-                  style={{ borderBottom: "2px solid #ddd" }}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps()}
-                      style={{ border: "1px solid #ddd", padding: "8px" }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.id}
-                    {...row.getRowProps()}
-                    style={{ borderBottom: "1px solid #ddd" }}
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Camp Name
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Date and Time
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Venue
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Camp Fees
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Payment Status
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Confirmation Status
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {regCamps?.map((regCamp) => (
+              <TableRow key={regCamp._id}>
+                <TableCell>{regCamp.campName}</TableCell>
+                <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                <TableCell>{regCamp.venueLocation}</TableCell>
+                <TableCell>{regCamp.campFees}</TableCell>
+                <TableCell>{regCamp.paymentStatus}</TableCell>
+                <TableCell>{regCamp.confirmationStatus}</TableCell>
+                <TableCell>
+                  <IconButton
+                    component={Link}
+                    // to={`/dashboard/updateCamps/${regCamp._id}`}
                   >
-                    {row.cells.map((cell) => (
-                      <td
-                        key={cell.column.id}
-                        {...cell.getCellProps()}
-                        style={{ border: "1px solid #ddd", padding: "8px" }}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Paper>
-
-        <Dialog open={openDialog} onClose={handleDialogClose}>
-          <DialogTitle>Delete Confirmation</DialogTitle>
-          <DialogContent>
-            Are you sure you want to delete the camp?
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDialogClose}>Cancel</Button>
-            <Button onClick={handleDeleteConfirm} color="error">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Container>
-    </>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDeleteRegCamp(regCamp)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

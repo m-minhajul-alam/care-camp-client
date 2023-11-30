@@ -1,118 +1,159 @@
-// src/components/ManageUpcomingCamps.js
-import React from "react";
-import { useTable } from "react-table";
-import campData from "../../../../public/campData.json";
-import { Typography } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Paper,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
+import Swal from "sweetalert2";
 
 const ManageUpcomingCamps = () => {
-  const data = React.useMemo(() => campData, [campData]);
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Camp Name",
-        accessor: "campName",
-      },
-      {
-        Header: "Date and Time",
-        accessor: "scheduledDateTime",
-      },
-      {
-        Header: "Venue",
-        accessor: "venueLocation",
-      },
-      {
-        Header: "Target Audience",
-        accessor: "targetAudience",
-      },
-      {
-        Header: "Participant Count",
-        accessor: "participants.length",
-      },
-      {
-        Header: "Interested Professionals Count",
-        accessor: "healthcareProfessionals.length",
-      },
-      {
-        Header: "Actions",
-        Cell: () => (
-          <>
-            <button onClick={() => console.log("Delete")}>Delete</button>
-            <button onClick={() => console.log("Update")}>Update</button>
-            <button onClick={() => console.log("Publish")}>Publish</button>
-            <button onClick={() => console.log("Accept Professionals")}>
-              Accept Professionals
-            </button>
-            <button onClick={() => console.log("Accept Participants")}>
-              Accept Participants
-            </button>
-            <button onClick={() => console.log("Review Professionals")}>
-              Review Professionals
-            </button>
-            <button onClick={() => console.log("Review Participants")}>
-              Review Participants
-            </button>
-          </>
-        ),
-      },
-    ],
-    []
-  );
+  const axiosPublic = useAxiosPublic();
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const {
+    isPending,
+    isError,
+    error,
+    refetch,
+    data: upcomingCamps,
+  } = useQuery({
+    queryKey: ["upcomingCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/upcomingCamps`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
+
+  const handleDelUpcomingCamp = (upcomingCamp) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/upcomingCamps/${upcomingCamp._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Upcoming Capm has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
-    <div>
+    <Container>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Manage Upcoming Camps
       </Typography>
-      <table
-        {...getTableProps()}
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          border: "1px solid #ddd",
-        }}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  key={column.id}
-                  {...column.getHeaderProps()}
-                  style={{ border: "1px solid #ddd", padding: "8px" }}
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                key={row.id}
-                {...row.getRowProps()}
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
-                {row.cells.map((cell) => (
-                  <td
-                    key={cell.column.id}
-                    {...cell.getCellProps()}
-                    style={{ border: "1px solid #ddd", padding: "8px" }}
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Camp Name
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Date and Time
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Venue
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Target Audience
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Participant Count
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Interested Professionals Count
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {upcomingCamps?.map((upcomingCamp) => (
+              <TableRow key={upcomingCamp._id}>
+                <TableCell>{upcomingCamp.campName}</TableCell>
+                <TableCell>{upcomingCamp.scheduledDateTime}</TableCell>
+                <TableCell>{upcomingCamp.venueLocation}</TableCell>
+                <TableCell>{upcomingCamp.targetAudience}</TableCell>
+                <TableCell>{upcomingCamp.participantCount}</TableCell>
+                <TableCell>
+                  {upcomingCamp.interestedProfessionalsCount}
+                </TableCell>
+                <TableCell>
+                  <IconButton
+                    component={Link}
+                    to={`/dashboard/updateUpcomingCamps/${upcomingCamp._id}`}
                   >
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelUpcomingCamp(upcomingCamp)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

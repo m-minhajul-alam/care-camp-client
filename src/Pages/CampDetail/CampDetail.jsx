@@ -90,10 +90,13 @@ const CampDetail = () => {
       address,
       healthInfo,
       emergencyContact,
-      CampName: campDetails.campName,
-      CampId: campDetails._id,
-      CampFees: campDetails.campFees,
+      campName: campDetails.campName,
+      campId: campDetails._id,
+      campFees: campDetails.campFees,
+      scheduledDateTime: campDetails.scheduledDateTime,
+      venueLocation: campDetails.venueLocation,
     };
+    console.log(registerInfo);
 
     try {
       const response = await axiosPublic.post("/regCamps", registerInfo);

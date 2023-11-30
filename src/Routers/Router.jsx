@@ -19,6 +19,8 @@ import AddUpcomingCamp from "../Pages/Dashboard/Organizer/AddUpcomingCamp";
 import ManageUpcomingCamps from "../Pages/Dashboard/Organizer/ManageUpcomingCamps";
 import AcceptedCamps from "../Pages/Dashboard/HelthCare/AcceptedCamps";
 import PrivateRoute from "./PrivateRoute";
+import UpdateCamp from "../Pages/UpdateCamp/UpdateCamp";
+import UpdataUpcomingCamp from "../Pages/Dashboard/Organizer/UpdataUpcomingCamp";
 
 const router = createBrowserRouter([
   {
@@ -76,12 +78,20 @@ const router = createBrowserRouter([
         element: <ManageCamps></ManageCamps>,
       },
       {
+        path: "/dashboard/updateCamps/:id",
+        element: <UpdateCamp></UpdateCamp>,
+      },
+      {
         path: "/dashboard/addUpcomingCamp",
         element: <AddUpcomingCamp></AddUpcomingCamp>,
       },
       {
         path: "/dashboard/manageRegisteredCamps",
         element: <ManageRegisteredCamps></ManageRegisteredCamps>,
+      },
+      {
+        path: "/dashboard/updateUpcomingCamps/:id",
+        element: <UpdataUpcomingCamp></UpdataUpcomingCamp>,
       },
       {
         path: "/dashboard/manageUpcomingCamps",

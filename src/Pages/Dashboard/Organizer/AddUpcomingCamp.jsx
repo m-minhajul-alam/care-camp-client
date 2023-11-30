@@ -11,18 +11,6 @@ const AddUpcomingCamp = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
-  const initialValues = {
-    campName: "",
-    image: "",
-    campFees: "",
-    scheduledDateTime: "",
-    venueLocation: "",
-    specializedService: "",
-    healthcareProfessional: "",
-    targetAudience: "",
-    description: "",
-  };
-
   const validate = (values) => {
     const errors = {};
 
@@ -89,7 +77,6 @@ const AddUpcomingCamp = () => {
       </Typography>
 
       <Formik
-        initialValues={initialValues}
         validate={validate}
         onSubmit={onSubmit}
       >
@@ -224,7 +211,7 @@ const AddUpcomingCamp = () => {
               as="textarea"
               id="description"
               name="description"
-              style={{ width: "100%", height: "40px" }}
+              style={{ width: "100%", height: "200px" }}
             />
             <ErrorMessage
               name="description"

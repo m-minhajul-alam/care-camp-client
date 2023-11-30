@@ -1,196 +1,145 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
   Paper,
   IconButton,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
 } from "@mui/material";
-import { useTable } from "react-table";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-// import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
+import Swal from "sweetalert2";
 
 const ManageCamps = () => {
-  const [data, setData] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedCamp, setSelectedCamp] = useState(null);
-  // const axiosPublic = useAxiosPublic();
+  const axiosPublic = useAxiosPublic();
 
-  // const { data } = useQuery({
-  //   queryKey: ["data"],
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get("/camps");
-  //     return res.data;
-  //   },
-  // });
-  // console.log(data);
+  const {
+    isPending,
+    isError,
+    error,
+    refetch,
+    data: camps,
+  } = useQuery({
+    queryKey: ["camps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/camps`);
+      return res.data;
+    },
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/camps");
-        if (!response.ok) {
-          throw new Error("Failed to fetch camp data");
-        }
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error("Error fetching camp data:", error.message);
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
+
+  const handleDeleteCamp = (camp) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/camps/${camp._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Camp has been deleted.",
+              icon: "success",
+            });
+          }
+        });
       }
-    };
-
-    fetchData();
-  }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Camp Name",
-        accessor: "campName",
-      },
-      {
-        Header: "Date and Time",
-        accessor: "scheduledDateTime",
-      },
-      {
-        Header: "Location",
-        accessor: "venueLocation",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <>
-            <IconButton onClick={() => handleEdit(row.original)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => openDeleteDialog(row.original)}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        ),
-      },
-    ],
-    []
-  );
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
-
-  const handleEdit = (camp) => {
-    console.log("Edit camp:", camp);
-  };
-
-  const handleDelete = (camp) => {
-    console.log("Delete camp:", camp);
-  };
-
-  const handleDialogClose = () => {
-    setOpenDialog(false);
-    setSelectedCamp(null);
-  };
-
-  const handleDeleteConfirm = () => {
-    if (selectedCamp) {
-      handleDelete(selectedCamp);
-      handleDialogClose();
-    }
-  };
-
-  const openDeleteDialog = (camp) => {
-    setSelectedCamp(camp);
-    setOpenDialog(true);
+    });
   };
 
   return (
-    <>
-      <Container>
-        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-          Manage Camps
-        </Typography>
+    <Container>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Manage Camps
+      </Typography>
 
-        <Paper
-          elevation={3}
-          sx={{
-            overflow: "auto",
-            margin: "auto",
-            width: "80%",
-            maxWidth: "100%",
-          }}
-        >
-          <table
-            {...getTableProps()}
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              border: "1px solid #ddd",
-            }}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  key={headerGroup.id}
-                  {...headerGroup.getHeaderGroupProps()}
-                  style={{ borderBottom: "2px solid #ddd" }}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps()}
-                      style={{ border: "1px solid #ddd", padding: "8px" }}
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+                Camp Name
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+                Date and Time
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+                Venue
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {camps &&
+              camps?.map((camp) => (
+                <TableRow key={camp._id}>
+                  <TableCell>{camp.campName}</TableCell>
+                  <TableCell>{camp.scheduledDateTime}</TableCell>
+                  <TableCell>{camp.venueLocation}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      component={Link}
+                      to={`/dashboard/updateCamps/${camp._id}`}
                     >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleDeleteCamp(camp)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
               ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.id}
-                    {...row.getRowProps()}
-                    style={{ borderBottom: "1px solid #ddd" }}
-                  >
-                    {row.cells.map((cell) => (
-                      <td
-                        key={cell.column.id}
-                        {...cell.getCellProps()}
-                        style={{ border: "1px solid #ddd", padding: "8px" }}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Paper>
-
-        <Dialog open={openDialog} onClose={handleDialogClose}>
-          <DialogTitle>Delete Confirmation</DialogTitle>
-          <DialogContent>
-            Are you sure you want to delete the camp?
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDialogClose}>Cancel</Button>
-            <Button onClick={handleDeleteConfirm} color="error">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Container>
-    </>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

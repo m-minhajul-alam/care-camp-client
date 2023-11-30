@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import {
   Container,
   Typography,
@@ -10,33 +10,84 @@ import {
   TableRow,
   Paper,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  CircularProgress,
 } from "@mui/material";
 import { CancelOutlined } from "@mui/icons-material";
-
-import campData from "../../../../public/campData.json";
+import { Box } from "@mui/system";
+import { useQuery } from "react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
-  const [data, setData] = useState(campData);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedCampId, setSelectedCampId] = useState(null);
+  const axiosPublic = useAxiosPublic();
 
-  const handleCancelClick = (campId) => {
-    setSelectedCampId(campId);
-    setOpenModal(true);
-  };
-
-  const handleCancelConfirm = () => {
-    const updatedData = data.map((camp) =>
-      camp.id === selectedCampId
-        ? { ...camp, confirmationStatus: "Cancelled" }
-        : camp
+  const {
+    isPending,
+    isError,
+    error,
+    refetch,
+    data: regCamps,
+  } = useQuery({
+    queryKey: ["regCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/regCamps`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
     );
-    setData(updatedData);
-    setOpenModal(false);
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
+
+  const handleDeleteRegCamp = (regCamp) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/regCamps/${regCamp._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Reg.Capm has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -74,42 +125,41 @@ const RegisteredCamps = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((camp) => (
-                <TableRow key={camp.id}>
-                  <TableCell>{camp.campName}</TableCell>
-                  <TableCell>{camp.scheduledDateTime}</TableCell>
-                  <TableCell>{camp.venueLocation}</TableCell>
-                  <TableCell>{camp.campFees}</TableCell>
-                  <TableCell>{camp.paymentStatus}</TableCell>
-                  <TableCell>{camp.confirmationStatus}</TableCell>
+              {regCamps.map((regCamp) => (
+                <TableRow key={regCamp.id}>
+                  <TableCell>{regCamp.campName}</TableCell>
+                  <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                  <TableCell>{regCamp.venueLocation}</TableCell>
+                  <TableCell>{regCamp.campFees}</TableCell>
+                  <TableCell>{regCamp.paymentStatus}</TableCell>
+                  <TableCell>{regCamp.confirmationStatus}</TableCell>
                   <TableCell>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleCancelClick(camp.id)}
-                      disabled={camp.paymentStatus === "Paid"}
+                      onClick={() => handleDeleteRegCamp(regCamp)}
+                      // onClick={() => handleCancelClick(camp.id)}
+                      disabled={regCamps.paymentStatus === "Paid"}
                       sx={{ minWidth: 0 }}
                     >
                       <CancelOutlined />
                     </Button>
+
+                    {regCamps.paymentStatus !== "Paid" && (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ minWidth: 0, my: 1 }}
+                      >
+                        Pay
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-
-        {/* Modal for Cancel Confirmation */}
-        <Dialog open={openModal} onClose={() => setOpenModal(false)}>
-          <DialogTitle>Delete Confirmation</DialogTitle>
-          <DialogContent>Are you sure you want to cancel?</DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenModal(false)}>No</Button>
-            <Button onClick={handleCancelConfirm} color="error">
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Container>
     </>
   );
