@@ -26,6 +26,7 @@ const ManageUpcomingCamps = () => {
     isPending,
     isError,
     error,
+    isFetching,
     refetch,
     data: upcomingCamps,
   } = useQuery({
@@ -46,6 +47,37 @@ const ManageUpcomingCamps = () => {
         }}
       >
         <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!upcomingCamps) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        No Data Found
       </Box>
     );
   }

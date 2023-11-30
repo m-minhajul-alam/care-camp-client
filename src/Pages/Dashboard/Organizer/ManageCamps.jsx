@@ -27,6 +27,7 @@ const ManageCamps = () => {
     isError,
     error,
     refetch,
+    isFetching,
     data: camps,
   } = useQuery({
     queryKey: ["camps"],
@@ -35,6 +36,8 @@ const ManageCamps = () => {
       return res.data;
     },
   });
+
+  console.log(camps);
 
   if (isPending) {
     return (
@@ -47,6 +50,37 @@ const ManageCamps = () => {
         }}
       >
         <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!camps) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        No Data Found
       </Box>
     );
   }
