@@ -102,17 +102,20 @@ const ManageCamps = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
                 Camp Name
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
                 Date and Time
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
                 Venue
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>
-                Actions
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Edit
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Delete
               </TableCell>
             </TableRow>
           </TableHead>
@@ -130,6 +133,8 @@ const ManageCamps = () => {
                     >
                       <EditIcon />
                     </IconButton>
+                  </TableCell>
+                  <TableCell>
                     <IconButton onClick={() => handleDeleteCamp(camp)}>
                       <DeleteIcon />
                     </IconButton>

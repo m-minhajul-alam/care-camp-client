@@ -60,10 +60,6 @@ const AvailableCamps = () => {
     );
   }
 
-  // const joinCamp = (campId) => {
-  //   console.log(`Joining camp with ID: ${campId}`);
-  // };
-
   return (
     <Container sx={{ my: "28px" }}>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
@@ -120,18 +116,10 @@ const AvailableCamps = () => {
               </CardContent>
               <CardActions sx={{ marginTop: "auto" }}>
                 <Button
-                  variant="contained"
-                  color="primary"
-                  // onClick={() => handleRegister(camp.campName)}
-                  style={{ width: "100%", marginRight: "1px" }}
-                >
-                  Register
-                </Button>
-                <Button
                   variant="outlined"
                   color="primary"
                   component={Link}
-                  style={{ width: "100%", marginLeft: "1px" }}
+                  style={{ width: "100%" }}
                   to={`/campDetails/${camp._id}`}
                 >
                   Details

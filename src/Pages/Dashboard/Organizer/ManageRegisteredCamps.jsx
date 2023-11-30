@@ -120,7 +120,10 @@ const ManageRegisteredCamps = () => {
                 Confirmation Status
               </TableCell>
               <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
-                Actions
+                Edit
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Delete
               </TableCell>
             </TableRow>
           </TableHead>
@@ -130,16 +133,16 @@ const ManageRegisteredCamps = () => {
                 <TableCell>{regCamp.campName}</TableCell>
                 <TableCell>{regCamp.scheduledDateTime}</TableCell>
                 <TableCell>{regCamp.venueLocation}</TableCell>
-                <TableCell>{regCamp.campFees}</TableCell>
+                <TableCell>${regCamp.campFees}</TableCell>
                 <TableCell>{regCamp.paymentStatus}</TableCell>
                 <TableCell>{regCamp.confirmationStatus}</TableCell>
                 <TableCell>
-                  <IconButton
-                    component={Link}
-                    // to={`/dashboard/updateCamps/${regCamp._id}`}
-                  >
+                  <IconButton component={Link}>
                     <EditIcon />
                   </IconButton>
+                </TableCell>
+
+                <TableCell>
                   <IconButton onClick={() => handleDeleteRegCamp(regCamp)}>
                     <DeleteIcon />
                   </IconButton>

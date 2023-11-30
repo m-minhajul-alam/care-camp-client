@@ -101,55 +101,61 @@ const ManageUpcomingCamps = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Camp Name
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Date and Time
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Venue
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Target Audience
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Participant Count
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
                 Interested Professionals Count
               </TableCell>
-              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
-                Actions
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
+                Edit
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "13px" }}>
+                Delete
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {upcomingCamps?.map((upcomingCamp) => (
-              <TableRow key={upcomingCamp._id}>
-                <TableCell>{upcomingCamp.campName}</TableCell>
-                <TableCell>{upcomingCamp.scheduledDateTime}</TableCell>
-                <TableCell>{upcomingCamp.venueLocation}</TableCell>
-                <TableCell>{upcomingCamp.targetAudience}</TableCell>
-                <TableCell>{upcomingCamp.participantCount}</TableCell>
-                <TableCell>
-                  {upcomingCamp.interestedProfessionalsCount}
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    component={Link}
-                    to={`/dashboard/updateUpcomingCamps/${upcomingCamp._id}`}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleDelUpcomingCamp(upcomingCamp)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+            {upcomingCamps &&
+              upcomingCamps?.map((upcomingCamp) => (
+                <TableRow key={upcomingCamp._id}>
+                  <TableCell>{upcomingCamp.campName}</TableCell>
+                  <TableCell>{upcomingCamp.scheduledDateTime}</TableCell>
+                  <TableCell>{upcomingCamp.venueLocation}</TableCell>
+                  <TableCell>{upcomingCamp.targetAudience}</TableCell>
+                  <TableCell>{upcomingCamp.participantCount}</TableCell>
+                  <TableCell>
+                    {upcomingCamp.interestedProfessionalsCount}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      component={Link}
+                      to={`/dashboard/updateUpcomingCamps/${upcomingCamp._id}`}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() => handleDelUpcomingCamp(upcomingCamp)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

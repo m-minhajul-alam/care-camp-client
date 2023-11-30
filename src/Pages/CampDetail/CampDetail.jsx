@@ -95,6 +95,8 @@ const CampDetail = () => {
       campFees: campDetails.campFees,
       scheduledDateTime: campDetails.scheduledDateTime,
       venueLocation: campDetails.venueLocation,
+      paymentStatus: "Unpaid",
+      confirmationStatus: "Pending",
     };
     console.log(registerInfo);
 
@@ -106,7 +108,6 @@ const CampDetail = () => {
       console.error(error);
       toast.error("Error submitting form. Please try again.");
     }
-
     setOpenModal(false);
   };
 
@@ -133,11 +134,22 @@ const CampDetail = () => {
                 <strong> Date:</strong> {campDetails.scheduledDateTime}
               </Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
+                <strong> Camp Fees: </strong>${campDetails.campFees}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" gutterBottom>
                 <strong> Venue: </strong>
                 {campDetails.venueLocation}
               </Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 <strong> Target Audience:</strong> {campDetails.targetAudience}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" gutterBottom>
+                <strong> Specialized Service:</strong>{" "}
+                {campDetails.specializedService}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" gutterBottom>
+                <strong> Healthcare Professional:</strong>{" "}
+                {campDetails.healthcareProfessional}
               </Typography>
               <Typography variant="body1" sx={{ mt: 2 }}>
                 {campDetails.description}

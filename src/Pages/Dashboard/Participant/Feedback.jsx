@@ -1,50 +1,108 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from "react";
 import {
   Container,
   Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Paper,
-  Button,
-  Modal,
-  Box,
+  CircularProgress,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
   TextField,
+  DialogActions,
+  Button,
   Rating,
 } from "@mui/material";
-import { useTable } from "react-table";
-import campData from "../../../../public/campData.json";
+import { ReviewsSharp } from "@mui/icons-material";
+import { Box } from "@mui/system";
+import { useQuery } from "react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAuth from "../../../Hooks/useAuth";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Feedback = () => {
-  const filteredData = campData.filter(
-    (camp) =>
-      camp.paymentStatus === "Paid" && camp.confirmationStatus === "Confirmed"
+  const axiosPublic = useAxiosPublic();
+  const [openModal, setOpenModal] = useState(false);
+  const { user } = useAuth();
+
+  const {
+    isPending,
+    isError,
+    error,
+    data: regCamps,
+  } = useQuery({
+    queryKey: ["regCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/regCamps`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
+
+  const filteredCamps = regCamps?.filter(
+    (regCamp) =>
+      regCamp.paymentStatus === "Paid" &&
+      regCamp.confirmationStatus === "Confirmed"
   );
 
-  const columns = React.useMemo(
-    () => [
-      { Header: "Camp Name", accessor: "campName" },
-      { Header: "Date and Time", accessor: "scheduledDateTime" },
-      { Header: "Venue", accessor: "venueLocation" },
-      { Header: "Camp Fees", accessor: "campFees" },
-      { Header: "Payment Status", accessor: "paymentStatus" },
-      { Header: "Confirmation Status", accessor: "confirmationStatus" },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <ReviewButton
-            campId={row.original.id}
-            campName={row.original.campName}
-          />
-        ),
-      },
-    ],
-    []
-  );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const feedback = form.feedback.value;
+    const rating = form.rating.value;
+    const feedbackInfo = {
+      name,
+      feedback,
+      rating,
+    };
+    console.log(feedbackInfo);
 
-  const data = filteredData || [];
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    try {
+      const response = await axiosPublic.post("/feedback", feedbackInfo);
+      console.log(response);
+      toast.success("Feedback submitted successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error submitting feedback. Please try again.");
+    }
+    setOpenModal(false);
+  };
 
   return (
     <>
@@ -53,130 +111,97 @@ const Feedback = () => {
           Feedback
         </Typography>
 
-        <Paper
-          elevation={3}
-          sx={{
-            overflow: "auto",
-            margin: "auto",
-            width: "80%",
-            maxWidth: "100%",
-          }}
-        >
-          <table
-            {...getTableProps()}
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              border: "1px solid #ddd",
-            }}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  key={headerGroup.id}
-                  {...headerGroup.getHeaderGroupProps()}
-                  style={{ borderBottom: "2px solid #ddd" }}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps()}
-                      style={{ border: "1px solid #ddd", padding: "8px" }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.id}
-                    {...row.getRowProps()}
-                    style={{ borderBottom: "1px solid #ddd" }}
-                  >
-                    {row.cells.map((cell) => (
-                      <td
-                        key={cell.row.id}
-                        {...cell.getCellProps()}
-                        style={{ border: "1px solid #ddd", padding: "8px" }}
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <strong>Camp Name</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Date and Time</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Venue</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Camp Fees</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Payment Status</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Confirmation Status</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Review</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredCamps &&
+                filteredCamps?.map((regCamp) => (
+                  <TableRow key={regCamp.id}>
+                    <TableCell>{regCamp.campName}</TableCell>
+                    <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                    <TableCell>{regCamp.venueLocation}</TableCell>
+                    <TableCell>${regCamp.campFees}</TableCell>
+                    <TableCell>{regCamp.paymentStatus}</TableCell>
+                    <TableCell>{regCamp.confirmationStatus}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() => setOpenModal(true)}
+                        sx={{ minWidth: 0 }}
                       >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Paper>
+                        <ReviewsSharp />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Dialog open={openModal} onClose={() => setOpenModal(false)}>
+          <DialogTitle>Participant Registration</DialogTitle>
+          <form onSubmit={handleSubmit}>
+            <DialogContent>
+              <TextField
+                label="Name"
+                name="name"
+                value={user.displayName}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Feedback"
+                multiline
+                rows={4}
+                fullWidth
+                name="feedback"
+                variant="outlined"
+                margin="normal"
+              />
+              <Typography variant="subtitle1" gutterBottom>
+                Rating:{" "}
+                <Rating name="rating" defaultValue={0} precision={0.5} />
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setOpenModal(false)}
+                variant="outlined"
+                color="primary"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
       </Container>
-    </>
-  );
-};
-
-// ReviewButton component
-const ReviewButton = ({ campId, campName }) => {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmitReview = () => {
-    console.log("Feedback submitted for camp:", campName);
-    handleClose();
-  };
-
-  return (
-    <>
-      <Button variant="contained" onClick={handleOpen}>
-        Review
-      </Button>
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Typography variant="h6" gutterBottom>
-            Review for {campName}
-          </Typography>
-          <TextField
-            label="Feedback"
-            multiline
-            rows={4}
-            fullWidth
-            variant="outlined"
-            margin="normal"
-          />
-          <Typography variant="subtitle1" gutterBottom>
-            Rating:
-          </Typography>
-          <Rating defaultValue={0} precision={0.5} />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmitReview}
-          >
-            Submit Review
-          </Button>
-        </Box>
-      </Modal>
     </>
   );
 };

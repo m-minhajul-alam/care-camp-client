@@ -21,6 +21,7 @@ import AcceptedCamps from "../Pages/Dashboard/HelthCare/AcceptedCamps";
 import PrivateRoute from "./PrivateRoute";
 import UpdateCamp from "../Pages/UpdateCamp/UpdateCamp";
 import UpdataUpcomingCamp from "../Pages/Dashboard/Organizer/UpdataUpcomingCamp";
+import Payment from "../Pages/Dashboard/Participant/Payment";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/registeredCamps",
         element: <RegisteredCamps></RegisteredCamps>,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment></Payment>,
       },
       {
         path: "/dashboard/paymentHistory",

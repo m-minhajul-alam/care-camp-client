@@ -1,25 +1,65 @@
-import React from "react";
-import { Container, Typography, Paper } from "@mui/material";
-import { useTable } from "react-table";
-import campData from "../../../../public/campData.json";
+// import { useState } from "react";
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useQuery } from "react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const PaymentHistory = () => {
-  const columns = React.useMemo(
-    () => [
-      { Header: "Camp Name", accessor: "campName" },
-      { Header: "Date and Time", accessor: "scheduledDateTime" },
-      { Header: "Venue", accessor: "venueLocation" },
-      { Header: "Camp Fees", accessor: "campFees" },
-      { Header: "Payment Status", accessor: "paymentStatus" },
-      { Header: "Confirmation Status", accessor: "confirmationStatus" },
-    ],
-    []
-  );
+  const axiosPublic = useAxiosPublic();
 
-  const data = campData || [];
+  const {
+    isPending,
+    isError,
+    error,
+    data: regCamps,
+  } = useQuery({
+    queryKey: ["regCamps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/regCamps`);
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -28,66 +68,45 @@ const PaymentHistory = () => {
           Payment History
         </Typography>
 
-        <Paper
-          elevation={3}
-          sx={{
-            overflow: "auto",
-            margin: "auto",
-            width: "80%",
-            maxWidth: "100%",
-          }}
-        >
-          <table
-            {...getTableProps()}
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              border: "1px solid #ddd",
-            }}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  key={headerGroup.id}
-                  {...headerGroup.getHeaderGroupProps()}
-                  style={{ borderBottom: "2px solid #ddd" }}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps()}
-                      style={{ border: "1px solid #ddd", padding: "8px" }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.id}
-                    {...row.getRowProps()}
-                    style={{ borderBottom: "1px solid #ddd" }}
-                  >
-                    {row.cells.map((cell) => (
-                      <td
-                        key={cell.row.id}
-                        {...cell.getCellProps()}
-                        style={{ border: "1px solid #ddd", padding: "8px" }}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Paper>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <strong>Camp Name</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Date and Time</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Venue</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Camp Fees</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Payment Status</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Confirmation Status</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {regCamps &&
+                regCamps?.map((regCamp) => (
+                  <TableRow key={regCamp.id}>
+                    <TableCell>{regCamp.campName}</TableCell>
+                    <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                    <TableCell>{regCamp.venueLocation}</TableCell>
+                    <TableCell>{regCamp.campFees}</TableCell>
+                    <TableCell>{regCamp.paymentStatus}</TableCell>
+                    <TableCell>{regCamp.confirmationStatus}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     </>
   );

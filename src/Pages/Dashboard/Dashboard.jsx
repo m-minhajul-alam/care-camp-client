@@ -20,7 +20,9 @@ import {
   AppRegistration,
   Checklist,
   Construction,
+  ContactPage,
   ControlPointDuplicate,
+  EventAvailableTwoTone,
   Feedback,
   Home,
   ManageHistory,
@@ -212,6 +214,28 @@ const Dashboard = (props) => {
                 <Home />
               </ListItemIcon>
               <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link to={"/availableCamps"} style={{ textDecoration: "none" }}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <EventAvailableTwoTone />
+              </ListItemIcon>
+              <ListItemText primary="Available Camps" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link to={"/contactUs"} style={{ textDecoration: "none" }}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ContactPage />
+              </ListItemIcon>
+              <ListItemText primary="Contact Us" />
             </ListItemButton>
           </ListItem>
         </Link>

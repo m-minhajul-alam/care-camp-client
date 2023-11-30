@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -8,10 +7,6 @@ import {
   Typography,
   Container,
   Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   LinearProgress,
 } from "@mui/material";
 import { useQuery } from "react-query";
@@ -20,10 +15,6 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const PopularCamps = () => {
   const axiosPublic = useAxiosPublic();
-  const [participantCounts, setParticipantCounts] = useState({});
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedCampForRegistration, setSelectedCampForRegistration] =
-    useState("");
 
   const {
     isPending,
@@ -68,23 +59,6 @@ const PopularCamps = () => {
     );
   }
 
-  const handleRegister = (campName) => {
-    setSelectedCampForRegistration(campName);
-    setOpenDialog(true);
-  };
-
-  const handleDialogClose = () => {
-    setOpenDialog(false);
-  };
-
-  const handleRegisterConfirmation = (campName) => {
-    setParticipantCounts((prevCounts) => ({
-      ...prevCounts,
-      [campName]: (prevCounts[campName] || 0) + 1,
-    }));
-    setOpenDialog(false);
-  };
-
   return (
     <Container sx={{ my: "68px" }}>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
@@ -119,25 +93,13 @@ const PopularCamps = () => {
                 <Typography variant="body2" color="text.secondary">
                   <strong> Target Audience:</strong> {camp.targetAudience}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong> Participant Count:</strong>{" "}
-                  {participantCounts[camp.campName] || 0}
-                </Typography>
               </CardContent>
               <CardActions sx={{ marginTop: "auto" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleRegister(camp.campName)}
-                  style={{ width: "100%", marginRight: "1px" }}
-                >
-                  Register
-                </Button>
                 <Button
                   variant="outlined"
                   color="primary"
                   component={Link}
-                  style={{ width: "100%", marginLeft: "1px" }}
+                  style={{ width: "100%" }}
                   to={`/campDetails/${camp._id}`}
                 >
                   Details
@@ -150,31 +112,10 @@ const PopularCamps = () => {
       <div
         style={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
       >
-        <Button component={Link} to="/availableCamps" variant="outlined">
+        <Button component={Link} to="/availableCamps" variant="contained">
           See All Camps
         </Button>
       </div>
-
-      <Dialog open={openDialog} onClose={handleDialogClose}>
-        <DialogTitle>Register Confirmation</DialogTitle>
-        <DialogContent>
-          Are you sure you want to register for the camp?
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() =>
-              handleRegisterConfirmation(selectedCampForRegistration)
-            }
-            variant="contained"
-            color="primary"
-          >
-            Yes
-          </Button>
-          <Button variant="outlined" onClick={handleDialogClose}>
-            No
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Container>
   );
 };
