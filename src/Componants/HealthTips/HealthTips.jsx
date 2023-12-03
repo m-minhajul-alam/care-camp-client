@@ -1,22 +1,60 @@
-import { useState, useEffect } from "react";
-import { Container, Typography, Grid, Card, CardContent } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CircularProgress,
+} from "@mui/material";
+import { useQuery } from "react-query";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const HealthTips = () => {
-  const [healthTips, setHealthTips] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/healthTipsData.json");
-        const data = await response.json();
-        setHealthTips(data);
-      } catch (error) {
-        console.error("Error fetching health tips data:", error);
-      }
-    };
+  const {
+    isPending,
+    isError,
+    error,
+    data: healthTips,
+  } = useQuery({
+    queryKey: ["healthTips"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/healthTips");
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-    fetchData();
-  }, []);
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
 
   return (
     <Container sx={{ mt: 4, mb: 8 }}>
@@ -24,21 +62,26 @@ const HealthTips = () => {
         Health Tips
       </Typography>
       <Grid container spacing={4}>
-        {healthTips.map((tip, index) => (
-          <Grid key={index} item xs={12} sm={6} md={4}>
-            <Card
-              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-            >
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" color="primary" gutterBottom>
-                  {tip.title}
-                </Typography>
-                <hr />
-                <Typography variant="body2">{tip.content}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        {healthTips &&
+          healthTips?.map((tip, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" color="primary" gutterBottom>
+                    {tip.title}
+                  </Typography>
+                  <hr />
+                  <Typography variant="body2">{tip.content}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
       </Grid>
     </Container>
   );

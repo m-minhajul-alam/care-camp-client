@@ -18,6 +18,7 @@ import { Box } from "@mui/system";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "react-query";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ManageCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -128,6 +129,10 @@ const ManageCamps = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Manege Camps</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Manage Camps
       </Typography>

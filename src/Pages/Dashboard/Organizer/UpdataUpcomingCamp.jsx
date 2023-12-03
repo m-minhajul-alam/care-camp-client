@@ -1,10 +1,11 @@
 import { CircularProgress, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const UpdataUpcomingCamp = () => {
   const { id } = useParams();
@@ -12,15 +13,19 @@ const UpdataUpcomingCamp = () => {
   const navigaet = useNavigate();
   const axiosPublic = useAxiosPublic();
 
-  const { isPending, data: upcomingCamps } = useQuery({
+  const {
+    isPending,
+    isFetching,
+    isError,
+    error,
+    data: upcomingCamps,
+  } = useQuery({
     queryKey: ["upcomingCamps"],
     queryFn: async () => {
       const res = await axiosPublic.get(`/upcomingCamps/${id}`);
       return res.data;
     },
   });
-
-  console.log(upcomingCamps);
 
   if (isPending) {
     return (
@@ -33,6 +38,52 @@ const UpdataUpcomingCamp = () => {
         }}
       >
         <CircularProgress />
+      </Box>
+    );
+  }
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!upcomingCamps) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        No Data Found
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
       </Box>
     );
   }
@@ -74,7 +125,11 @@ const UpdataUpcomingCamp = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Update Upcoming Camp</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Update Upcoming Camp
       </Typography>
@@ -209,7 +264,7 @@ const UpdataUpcomingCamp = () => {
           Submit
         </button>
       </form>
-    </>
+    </Container>
   );
 };
 

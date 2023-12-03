@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
+import { Container } from "@mui/system";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -71,7 +73,10 @@ const AddCamp = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Add Camp</title>
+      </Helmet>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Add Camp
       </Typography>
@@ -232,7 +237,7 @@ const AddCamp = () => {
           </button>
         </Form>
       </Formik>
-    </>
+    </Container>
   );
 };
 

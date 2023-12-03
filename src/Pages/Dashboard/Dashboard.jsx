@@ -31,6 +31,9 @@ import {
 } from "@mui/icons-material";
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { CircularProgress } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -38,6 +41,57 @@ const Dashboard = (props) => {
   const { user } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  console.log(user);
+  const axiosPublic = useAxiosPublic();
+
+  const {
+    isPending,
+    isFetching,
+    data: users,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/users");
+      return res.data;
+    },
+  });
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  console.log(users);
+
+  const foundUser = users.find(function (element) {
+    return element.email === user.email;
+  });
+
+  console.log(foundUser.role);
+  console.log(user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -61,7 +115,7 @@ const Dashboard = (props) => {
       </Link>
 
       {/* Organizer Dashboard */}
-      {user && (
+      {foundUser.role === "Organizer" && (
         <List>
           {/*  AddCamp */}
           <Link to={"/dashboard/addCamp"} style={{ textDecoration: "none" }}>
@@ -138,7 +192,7 @@ const Dashboard = (props) => {
       )}
 
       {/* Health care Dashboard */}
-      {user && (
+      {foundUser.role === "HealthcareProfessional" && (
         <List>
           {/* Accepted Camps */}
           <Link
@@ -158,7 +212,7 @@ const Dashboard = (props) => {
       )}
 
       {/* Participant Dashboard */}
-      {user && (
+      {foundUser.role === "Participant" && (
         <List>
           {/* Registered Camps */}
           <Link

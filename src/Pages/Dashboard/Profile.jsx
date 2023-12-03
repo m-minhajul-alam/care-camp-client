@@ -12,6 +12,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -34,6 +35,10 @@ const Profile = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Profile</title>
+      </Helmet>
+
       <Container sx={{ maxWidth: "10px" }}>
         <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
           <Box>

@@ -30,6 +30,7 @@ import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -112,6 +113,10 @@ const SignUp = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Helmet>
+        <title>Care Camp | Sing Up</title>
+      </Helmet>
+
       <Box
         sx={{
           my: 2,

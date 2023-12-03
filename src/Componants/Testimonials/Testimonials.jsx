@@ -1,4 +1,3 @@
-// import { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
@@ -58,20 +57,6 @@ const Testimonials = () => {
     );
   }
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("/testimonialsData.json");
-  //       const data = await response.json();
-  //       setTestimonials(data);
-  //     } catch (error) {
-  //       console.error("Error fetching testimonials data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   return (
     <Container sx={{ my: "68px" }}>
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
@@ -108,7 +93,6 @@ const Testimonials = () => {
                 defaultValue={feedback.rating}
                 readOnly
               />
-
               <Typography
                 sx={{ maxWidth: "md", textAlign: "center", m: "auto" }}
                 variant="body2"

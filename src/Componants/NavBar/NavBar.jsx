@@ -99,7 +99,7 @@ const NavBar = () => {
               </Link>
 
               {user && (
-                <>
+                <div>
                   <Link
                     style={{ textDecoration: "none", color: "black" }}
                     to={"/availableCamps"}
@@ -118,7 +118,7 @@ const NavBar = () => {
                       <Typography textAlign="center">Dashbord</Typography>
                     </MenuItem>
                   </Link>
-                </>
+                </div>
               )}
 
               <Link

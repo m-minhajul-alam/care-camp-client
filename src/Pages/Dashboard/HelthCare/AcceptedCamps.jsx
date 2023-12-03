@@ -1,92 +1,152 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import { useTable } from "react-table";
 import {
-  Typography,
   Container,
+  Typography,
+  Paper,
+  IconButton,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
-  TableBody,
   TableRow,
-  TableCell,
-  Button,
+  CircularProgress,
 } from "@mui/material";
-
-import campData from "../../../../public/campData.json";
-import { ViewAgenda, Visibility } from "@mui/icons-material";
+import { Box } from "@mui/system";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "react-query";
+import { Visibility } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AcceptedCamps = () => {
-  const data = React.useMemo(() => {
-    return campData.filter((camp) => camp.acceptanceStatus === "Accepted");
-  }, [campData]);
+  const axiosPublic = useAxiosPublic();
 
-  const columns = React.useMemo(
-    () => [
-      { Header: "Camp Name", accessor: "campName" },
-      { Header: "Date and Time", accessor: "scheduledDateTime" },
-      { Header: "Venue", accessor: "venueLocation" },
-      { Header: "Target Audience", accessor: "targetAudience" },
-      { Header: "Acceptance Status", accessor: "acceptanceStatus" },
-      {
-        Header: "Actions",
-        accessor: "actions",
-        Cell: ({ row }) => (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleViewDetails(row.original.id)}
-          >
-            <Visibility />
-          </Button>
-        ),
-      },
-    ],
-    []
+  const {
+    isPending,
+    isError,
+    error,
+    isFetching,
+    data: camps,
+  } = useQuery({
+    queryKey: ["camps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/camps`);
+      return res.data;
+    },
+  });
+
+  console.log(camps);
+
+  if (isPending) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!camps) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        No Data Found
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
+      </Box>
+    );
+  }
+
+  const filteredCamps = camps?.filter(
+    (camp) => camp.acceptanceStatus === "Accepted"
   );
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
-
-  const handleViewDetails = (campId) => {
-    console.log(`View Details for Camp ID: ${campId}`);
-  };
 
   return (
     <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Accepted Camps</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-        Accepted Camps
+        Manage Camps
       </Typography>
 
-      <TableContainer>
-        <Table {...getTableProps()} style={{ width: "100%" }}>
+      <TableContainer component={Paper}>
+        <Table>
           <TableHead>
-            {headerGroups.map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                {...headerGroup.getHeaderGroupProps()}
-              >
-                {headerGroup.headers.map((column) => (
-                  <TableCell key={column.id} {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            <TableRow>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Camp Name
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Date and Time
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Venue
+              </TableCell>
+              <TableCell style={{ fontWeight: "bolder", fontSize: "15px" }}>
+                Details
+              </TableCell>
+            </TableRow>
           </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <TableRow key={row.id} {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.row.id} {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  ))}
+          <TableBody>
+            {filteredCamps &&
+              filteredCamps?.map((camp) => (
+                <TableRow key={camp._id}>
+                  <TableCell>{camp.campName}</TableCell>
+                  <TableCell>{camp.scheduledDateTime}</TableCell>
+                  <TableCell>{camp.venueLocation}</TableCell>
+                  <TableCell>
+                    <Link to={`/campDetails/${camp._id}`}>
+                      <IconButton>
+                        <Visibility />
+                      </IconButton>
+                    </Link>
+                  </TableCell>
                 </TableRow>
-              );
-            })}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

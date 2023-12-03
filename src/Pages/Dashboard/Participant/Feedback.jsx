@@ -25,6 +25,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const Feedback = () => {
   const axiosPublic = useAxiosPublic();
@@ -137,104 +138,105 @@ const Feedback = () => {
   };
 
   return (
-    <>
-      <Container>
-        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-          Feedback
-        </Typography>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Feedback</title>
+      </Helmet>
 
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <strong>Camp Name</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Date and Time</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Venue</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Camp Fees</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Payment Status</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Confirmation Status</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Review</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredCamps &&
-                filteredCamps?.map((regCamp) => (
-                  <TableRow key={regCamp.id}>
-                    <TableCell>{regCamp.campName}</TableCell>
-                    <TableCell>{regCamp.scheduledDateTime}</TableCell>
-                    <TableCell>{regCamp.venueLocation}</TableCell>
-                    <TableCell>${regCamp.campFees}</TableCell>
-                    <TableCell>{regCamp.paymentStatus}</TableCell>
-                    <TableCell>{regCamp.confirmationStatus}</TableCell>
-                    <TableCell>
-                      <IconButton
-                        onClick={() => setOpenModal(true)}
-                        sx={{ minWidth: 0 }}
-                      >
-                        <ReviewsSharp />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Feedback
+      </Typography>
 
-        <Dialog open={openModal} onClose={() => setOpenModal(false)}>
-          <DialogTitle>Participant Registration</DialogTitle>
-          <form onSubmit={handleSubmit}>
-            <DialogContent>
-              <TextField
-                label="Name"
-                name="name"
-                value={user.displayName}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Feedback"
-                multiline
-                rows={4}
-                fullWidth
-                name="feedback"
-                variant="outlined"
-                margin="normal"
-              />
-              <Typography variant="subtitle1" gutterBottom>
-                Rating:{" "}
-                <Rating name="rating" defaultValue={0} precision={0.5} />
-              </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={() => setOpenModal(false)}
-                variant="outlined"
-                color="primary"
-              >
-                Cancel
-              </Button>
-              <Button type="submit" variant="contained" color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
-      </Container>
-    </>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Camp Name</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Date and Time</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Venue</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Camp Fees</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Payment Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Confirmation Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Review</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredCamps &&
+              filteredCamps?.map((regCamp) => (
+                <TableRow key={regCamp.id}>
+                  <TableCell>{regCamp.campName}</TableCell>
+                  <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                  <TableCell>{regCamp.venueLocation}</TableCell>
+                  <TableCell>${regCamp.campFees}</TableCell>
+                  <TableCell>{regCamp.paymentStatus}</TableCell>
+                  <TableCell>{regCamp.confirmationStatus}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() => setOpenModal(true)}
+                      sx={{ minWidth: 0 }}
+                    >
+                      <ReviewsSharp />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Dialog open={openModal} onClose={() => setOpenModal(false)}>
+        <DialogTitle>Participant Registration</DialogTitle>
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <TextField
+              label="Name"
+              name="name"
+              value={user.displayName}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Feedback"
+              multiline
+              rows={4}
+              fullWidth
+              name="feedback"
+              variant="outlined"
+              margin="normal"
+            />
+            <Typography variant="subtitle1" gutterBottom>
+              Rating: <Rating name="rating" defaultValue={0} precision={0.5} />
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => setOpenModal(false)}
+              variant="outlined"
+              color="primary"
+            >
+              Cancel
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </Container>
   );
 };
 

@@ -1,8 +1,13 @@
 import { Container, Typography, Grid, Card, CardContent } from "@mui/material";
+import { Helmet } from "react-helmet-async";
 
 const ContactUs = () => {
   return (
     <Container sx={{ my: "28px" }}>
+      <Helmet>
+        <title>Care Camp | Contact Us</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Contact Us
       </Typography>

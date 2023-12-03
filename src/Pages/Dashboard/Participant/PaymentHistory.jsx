@@ -14,6 +14,7 @@ import {
 import { Box } from "@mui/system";
 import { useQuery } from "react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
   const axiosPublic = useAxiosPublic();
@@ -94,53 +95,55 @@ const PaymentHistory = () => {
   }
 
   return (
-    <>
-      <Container>
-        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-          Payment History
-        </Typography>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Payment History</title>
+      </Helmet>
 
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <strong>Camp Name</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Date and Time</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Venue</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Camp Fees</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Payment Status</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Confirmation Status</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {regCamps &&
-                regCamps?.map((regCamp) => (
-                  <TableRow key={regCamp.id}>
-                    <TableCell>{regCamp.campName}</TableCell>
-                    <TableCell>{regCamp.scheduledDateTime}</TableCell>
-                    <TableCell>{regCamp.venueLocation}</TableCell>
-                    <TableCell>{regCamp.campFees}</TableCell>
-                    <TableCell>{regCamp.paymentStatus}</TableCell>
-                    <TableCell>{regCamp.confirmationStatus}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Payment History
+      </Typography>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Camp Name</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Date and Time</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Venue</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Camp Fees</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Payment Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Confirmation Status</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {regCamps &&
+              regCamps?.map((regCamp) => (
+                <TableRow key={regCamp.id}>
+                  <TableCell>{regCamp.campName}</TableCell>
+                  <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                  <TableCell>{regCamp.venueLocation}</TableCell>
+                  <TableCell>{regCamp.campFees}</TableCell>
+                  <TableCell>{regCamp.paymentStatus}</TableCell>
+                  <TableCell>{regCamp.confirmationStatus}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

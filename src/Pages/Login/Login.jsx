@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 import { ArrowBack, Home } from "@mui/icons-material";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const axiosPublic = useAxiosPublic();
@@ -68,7 +69,7 @@ const Login = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res.data);
-        toast.success("Sing Up Success");
+        toast.success("Login Success");
         navigate(location?.state ? location.state : "/");
       });
     });
@@ -76,6 +77,10 @@ const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Helmet>
+        <title>Care Camp | Login</title>
+      </Helmet>
+
       <Box
         sx={{
           my: 2,

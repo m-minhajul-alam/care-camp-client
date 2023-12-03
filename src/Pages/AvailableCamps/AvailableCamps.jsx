@@ -12,6 +12,7 @@ import {
 import { useQuery } from "react-query";
 import { Box } from "@mui/system";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const AvailableCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -62,6 +63,10 @@ const AvailableCamps = () => {
 
   return (
     <Container sx={{ my: "28px" }}>
+      <Helmet>
+        <title>Care Camp | Available Camps</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Available Camps
       </Typography>

@@ -45,18 +45,6 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoding(false);
-      // if (currentUser) {
-      //   const userInfo = { email: currentUser.email };
-      //   axiosPublic.post("/jwt", userInfo).then((res) => {
-      //     if (res.data.token) {
-      //       localStorage.setItem("access-token", res.data.token);
-      //       setLoding(false);
-      //     }
-      //   });
-      // } else {
-      //   localStorage.removeItem("access-token");
-      //   setLoding(false);
-      // }
     });
     return () => {
       return unsubscribe();

@@ -17,6 +17,7 @@ import { useQuery } from "react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const RegisteredCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -123,81 +124,83 @@ const RegisteredCamps = () => {
   };
 
   return (
-    <>
-      <Container>
-        <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
-          Registered Camps
-        </Typography>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Regidtered Camps</title>
+      </Helmet>
 
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <strong>Camp Name</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Date and Time</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Venue</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Camp Fees</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Payment Status</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Confirmation Status</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Cancel</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Payment</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {regCamps &&
-                regCamps?.map((regCamp) => (
-                  <TableRow key={regCamp.id}>
-                    <TableCell>{regCamp.campName}</TableCell>
-                    <TableCell>{regCamp.scheduledDateTime}</TableCell>
-                    <TableCell>{regCamp.venueLocation}</TableCell>
-                    <TableCell>${regCamp.campFees}</TableCell>
-                    <TableCell>{regCamp.paymentStatus}</TableCell>
-                    <TableCell>{regCamp.confirmationStatus}</TableCell>
-                    <TableCell>
+      <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
+        Registered Camps
+      </Typography>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Camp Name</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Date and Time</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Venue</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Camp Fees</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Payment Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Confirmation Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Cancel</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Payment</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {regCamps &&
+              regCamps?.map((regCamp) => (
+                <TableRow key={regCamp.id}>
+                  <TableCell>{regCamp.campName}</TableCell>
+                  <TableCell>{regCamp.scheduledDateTime}</TableCell>
+                  <TableCell>{regCamp.venueLocation}</TableCell>
+                  <TableCell>${regCamp.campFees}</TableCell>
+                  <TableCell>{regCamp.paymentStatus}</TableCell>
+                  <TableCell>{regCamp.confirmationStatus}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() => handleDeleteRegCamp(regCamp)}
+                      disabled={regCamps.paymentStatus === "Paid"}
+                      sx={{ minWidth: 0 }}
+                    >
+                      <CancelOutlined />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    {regCamps.paymentStatus !== "Paid" ? (
                       <IconButton
-                        onClick={() => handleDeleteRegCamp(regCamp)}
-                        disabled={regCamps.paymentStatus === "Paid"}
-                        sx={{ minWidth: 0 }}
+                        component={Link}
+                        to={"/dashboard/payment"}
+                        sx={{ minWidth: 0, my: 1 }}
                       >
-                        <CancelOutlined />
+                        <PaymentOutlined />
                       </IconButton>
-                    </TableCell>
-                    <TableCell>
-                      {regCamps.paymentStatus !== "Paid" ? (
-                        <IconButton
-                          component={Link}
-                          to={"/dashboard/payment"}
-                          sx={{ minWidth: 0, my: 1 }}
-                        >
-                          <PaymentOutlined />
-                        </IconButton>
-                      ) : (
-                        "Paid"
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </>
+                    ) : (
+                      "Paid"
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

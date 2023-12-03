@@ -20,6 +20,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const CampDetail = () => {
   const { id } = useParams();
@@ -113,6 +114,10 @@ const CampDetail = () => {
 
   return (
     <Container sx={{ my: "28px" }}>
+      <Helmet>
+        <title>Care Camp | Camp Details</title>
+      </Helmet>
+
       {campDetails && (
         <>
           <Card>

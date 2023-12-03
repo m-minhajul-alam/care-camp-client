@@ -1,10 +1,11 @@
 import { CircularProgress, Typography } from "@mui/material";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const UpdateCamp = () => {
   const { id } = useParams();
@@ -12,7 +13,13 @@ const UpdateCamp = () => {
   const navigaet = useNavigate();
   const axiosPublic = useAxiosPublic();
 
-  const { isPending, data: camps } = useQuery({
+  const {
+    isPending,
+    isError,
+    error,
+    isFetching,
+    data: camps,
+  } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
       const res = await axiosPublic.get(`/camps/${id}`);
@@ -31,6 +38,52 @@ const UpdateCamp = () => {
         }}
       >
         <CircularProgress />
+      </Box>
+    );
+  }
+  if (isFetching) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!camps) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        No Data Found
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        {error.message}
       </Box>
     );
   }
@@ -69,7 +122,11 @@ const UpdateCamp = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Helmet>
+        <title>Care Camp | Dashboard | Upadate Camp</title>
+      </Helmet>
+
       <Typography variant="h4" align="center" color="primary" sx={{ mb: 4 }}>
         Update Camp
       </Typography>
@@ -204,7 +261,7 @@ const UpdateCamp = () => {
           Submit
         </button>
       </form>
-    </>
+    </Container>
   );
 };
 
