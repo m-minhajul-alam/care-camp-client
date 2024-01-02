@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Banner = () => {
   return (
-    <Container sx={{ maxWidth: "lg", maxHeight: "600px" }}>
+    <Container sx={{ maxWidth: "lg", maxHeight: "600px", mt: 3 }}>
       <Carousel
         showThumbs={false}
         autoPlay={true}
@@ -15,21 +15,21 @@ const Banner = () => {
       >
         <div>
           <img
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height: "350px", objectFit: "cover" }}
             src="https://i.ibb.co/VMjm0GQ/telehealth-consultation.jpg"
             alt="Telehealth Consultation"
           />
         </div>
         <div>
           <img
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height: "350px", objectFit: "cover" }}
             src="https://i.ibb.co/FhXHBfZ/coronavirus-vaccine.jpg"
             alt="Coronavirus Vaccine"
           />
         </div>
         <div>
           <img
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height: "350px", objectFit: "cover" }}
             src="https://i.ibb.co/S08j2jr/coronavirus-medical-staff.jpg"
             alt="Coronavirus Medical Staff"
           />
